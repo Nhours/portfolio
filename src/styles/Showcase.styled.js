@@ -7,7 +7,7 @@ position : relative;
 export const ShowcaseImageCard = styled.div`
 border: 1px solid white;
 width: max_content;
-padding-top: 2rem;
+// padding-top: 2rem;
 border-radius: 1rem;
 position: relative;
 overflow: hidden;
