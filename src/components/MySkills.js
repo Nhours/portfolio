@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion';
 
 // Import Global Styles
 import {
@@ -8,8 +9,6 @@ import {
   IconContainer,
   BlueText,
   ParaText,
-  // ParaText,
-  // BlueText,
 } from '../styles/Global.styled';
 
 // Import My Skills styles
@@ -20,19 +19,35 @@ import {
 
 import { Skills } from '../utils/Data';
 
+import {
+  fadeInLeftVariant,
+  fadeInRightVariant,
+} from '../utils/Variants';
+
 const MySkills = () => {
   return (
     <PaddingContainer
       id="Skills"
       top="10%"
       bottom="10%"
+      responsiveLeft="1rem"
+      responsiveRight="1rem"
     >
-      <FlexContainer fullWidthChild>
+      <FlexContainer
+        responsiveFlex
+        responsiveDirection="column-reverse"
+        fullWidthChild
+      >
         {/* left section */}
-        <SkillsCardContainer>
+        <SkillsCardContainer
+          as={motion.div}
+          variants={fadeInLeftVariant}
+          initial="hidden"
+          whileInView="visible"
+        >
           {Skills.map((skill) => (
             <SkillsCard>
-              <IconContainer size='5rem' color='blue'>
+              <IconContainer style={{ fontSize: '5rem' }} color="blue">
                 {skill.icon}
               </IconContainer>
 
@@ -44,7 +59,10 @@ const MySkills = () => {
         </SkillsCardContainer>
 
         {/* right-section */}
-        <div>
+        <motion.div
+        variants={fadeInRightVariant}
+        initial="hidden"
+        whileInView="visible">
           <Heading as="h4" size="h4">
             MY SKILLS
           </Heading>
@@ -63,7 +81,7 @@ const MySkills = () => {
             create efficient and sustainable code that can adept
             to the changing needs of a business.
           </ParaText>
-        </div>
+        </motion.div>
       </FlexContainer>
 
     </PaddingContainer>

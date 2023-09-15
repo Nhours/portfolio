@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 export const ContactForm = styled.form`
 width: 40%;
+
+@media(max-width: ${({ theme }) => theme.breakpoints.mobile}){
+    width: 90%;
+    margin: auto;
+    }
 `
 
 export const FormLabel = styled.p`

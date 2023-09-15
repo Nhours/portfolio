@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 // Import Global Styles
 import {
@@ -19,13 +20,20 @@ import {
 
 // Import assets
 import { FaGithub } from 'react-icons/fa';
-// import Project1 from '../../assets/Project1.png'
+import { fadeInLeftVariant, fadeInRightVariant } from '../../utils/Variants';
 
 const Project = ({ data }) => {
     return (
-        <FlexContainer fullWidthChild>
+        <FlexContainer
+            direction={data.reverse ? 'row-reverse' : false}
+            fullWidthChild
+        >
             {/* left-section-project-content */}
-            <div>
+            <motion.div
+                variants={data.reverse ? fadeInRightVariant : fadeInLeftVariant}
+                initial="hidden"
+                whileInView="visible"
+            >
                 <FlexContainer align="center" gap="1rem">
                     <Heading as="h3" size="h3" bottom="1rem">
                         {data.project_name}
@@ -49,10 +57,16 @@ const Project = ({ data }) => {
                 </ParaText>
 
                 <Button>Visit website</Button>
-            </div>
+            </motion.div>
 
             {/* right-section-project-image */}
-            <ProjectImageContainer justify="flex-end">
+            <ProjectImageContainer
+            as={motion.div}
+            variants={data.reverse ? fadeInLeftVariant : fadeInRightVariant}
+            initial="hidden"
+            whileInView="visible"
+                justify={data.reverse ? "flex-start" : "flx-end"}
+            >
                 <ProjectImage
                     src={data.project_img}
                     alt={data.project_name} />
