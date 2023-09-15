@@ -6,6 +6,7 @@ background-color: ${({ theme }) => theme.colors.secondary};
 color: #fff;
 padding: 0.3rem 1rem;
 border-radius: 5px;
+margin-top: 1rem;
 
 @media(max-width: ${({ theme }) => theme.breakpoints.mobile}){
     margin-right: 1rem;

@@ -40,7 +40,7 @@ const Project = ({ data }) => {
                     </Heading>
 
                     <IconContainer color="blue" size="2rem">
-                        <FaGithub />
+                        <FaGithub style={{ fontSize: '2rem' }}/>
                     </IconContainer>
                 </FlexContainer>
 
