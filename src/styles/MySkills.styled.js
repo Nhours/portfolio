@@ -2,18 +2,18 @@ import styled from "styled-components";
 
 export const SkillsCardContainer = styled.div`
 display: grid;
-grid-template-columns: auto auto;
-grid-gap: 2rem;
+grid-template-columns: repeat(4, 1fr); /* 4 colonnes égales */
+grid-gap: 1rem;
 padding: 0 5%;
 
 @media(max-width: ${({ theme }) => theme.breakpoints.mobile}){
-    display: block;
-    padding: 0;
-    }
+display: block;
+padding: 0;
+}
 `
 
 export const SkillsCard = styled.div`
-width: 230px;
+width: 100%; /* Largeur de la carte à 100% pour remplir la colonne */
 border: 1px solid #fff;
 padding: 3rem 0;
 border-radius: 1rem;
@@ -23,7 +23,6 @@ align-items: center;
 background-color: ${({ theme }) => theme.colors.primary_light};
 
 @media(max-width: ${({ theme }) => theme.breakpoints.mobile}){
-    width: 100%;
-    margin-top: 2rem;
-    }
+margin-top: 2rem;
+}
 `

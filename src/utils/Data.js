@@ -1,5 +1,7 @@
-import { FaReact, FaNode, FaCss3Alt } from 'react-icons/fa';
-import { SiJavascript } from 'react-icons/si';
+import { FaReact, FaNode, FaCss3Alt, FaHtml5, FaPhp, FaDocker, FaFigma } from 'react-icons/fa';
+import { SiJavascript, SiMysql } from 'react-icons/si';
+import { BsGit, BsGithub } from 'react-icons/bs'
+import { TbBrandVscode } from 'react-icons/tb'
 
 import Project1 from '../assets/CV.png';
 import Project2 from '../assets/Tangram.png';
@@ -13,23 +15,63 @@ import Project8 from '../assets/RestAPI.png';
 export const Skills = [
     {
         id: 0,
-        tech: 'React JS',
-        icon: <FaReact />
+        tech: 'HTML',
+        icon: <FaHtml5 />
     },
     {
         id: 1,
-        tech: 'Node JS',
-        icon: <FaNode />
-    },
-    {
-        id: 2,
         tech: 'CSS',
         icon: <FaCss3Alt />
     },
     {
-        id: 3,
+        id: 2,
         tech: 'Javascript',
         icon: <SiJavascript />
+    },
+    {
+        id: 3,
+        tech: 'PHP',
+        icon: <FaPhp />
+    },
+    {
+        id: 4,
+        tech: 'Node JS',
+        icon: <FaNode />
+    },
+    {
+        id: 5,
+        tech: 'React JS',
+        icon: <FaReact />
+    },
+    {
+        id: 6,
+        tech: 'MySQL',
+        icon: <SiMysql />
+    },
+    {
+        id: 7,
+        tech: 'Docker',
+        icon: <FaDocker />
+    },
+    {
+        id: 8,
+        tech: 'Git',
+        icon: <BsGit />
+    },
+    {
+        id: 9,
+        tech: 'Github',
+        icon: <BsGithub />
+    },
+    {
+        id: 10,
+        tech: 'Figma',
+        icon: <FaFigma />
+    },
+    {
+        id: 11,
+        tech: 'VSCode',
+        icon: <TbBrandVscode />
     },
 ]
 

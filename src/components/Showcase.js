@@ -49,7 +49,7 @@ const Showcase = () => {
                     initial="hidden"
                     whileInView="visible"
                 >
-                    <Heading as="h4" size="h4">Hello!</Heading>
+                    <Heading as="h4" size="h4">Bonjour !</Heading>
 
                     <Heading
                         as="h2"
@@ -57,7 +57,7 @@ const Showcase = () => {
                         top="0.5rem"
                         bottom="1rem"
                     >
-                        I'm <BlueText>Sébastien ALAPIDE</BlueText>
+                        Je suis <BlueText>Sébastien ALAPIDE</BlueText>
                     </Heading>
 
                     <Heading
@@ -66,11 +66,11 @@ const Showcase = () => {
                         top="0.5rem"
                         bottom="1rem"
                     >
-                        I'm a <BlueText>Frontend Developer</BlueText>
+                        Je suis <BlueText>Développeur Web</BlueText>
                     </Heading>
 
                     <ParaText as="p" top="2rem" bottom="4rem">
-                        Hello, my name is Sébastien ALAPIDE and I'm training to become a front-end web developer.
+                    Bonjour, je m'appelle Sébastien ALAPIDE et je me forme au métier de développeur web front-end.
                     </ParaText>
 
                     {/* social-icons */}
