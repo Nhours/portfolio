@@ -9,7 +9,7 @@ export const fadeInLeftVariant = {
 
         transition: {
             type: 'tween',
-            duration: 1,
+            duration: 2,
         }
     }
 }
@@ -25,7 +25,7 @@ export const fadeInRightVariant = {
 
         transition: {
             type: 'tween',
-            duration: 1,
+            duration: 2,
         }
     }
 }
@@ -41,7 +41,7 @@ export const fadeInTopVariant = {
 
         transition: {
             type: 'tween',
-            duration: 1,
+            duration: 2,
         }
     }
 }
@@ -57,7 +57,7 @@ export const fadeInBottomVariant = {
 
         transition: {
             type: 'tween',
-            duration: 1,
+            duration: 2,
         }
     }
 }

@@ -17,7 +17,7 @@ import {
 } from '../styles/Navbar.styled';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { theme } from '../utils/Theme';
+import { theme } from "../utils/Theme";
 import NavMenu from './layouts/NavMenu';
 
 const Navbar = () => {
@@ -54,7 +54,7 @@ const Navbar = () => {
                         {/* right-menu-icon */}
                         <MenuIcon
                             as={motion.a}
-                            whileHover={{scale: 1.2}}
+                            whileHover={{ scale: 1.2 }}
                             onClick={() => { setOpenMenu(true) }}
                         >
                             <GiHamburgerMenu />
