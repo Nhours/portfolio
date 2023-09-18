@@ -14,6 +14,7 @@ export const Logo = styled.p`
 font-size: 1.7rem;
 font-weight: ${({ theme }) => theme.fonts.weight.medium};
 color: white;
+cursor: pointer
 `
 
 export const MenuIcon = styled.a`
@@ -41,4 +42,9 @@ font-size: 2.5rem;
 margin-top: 3rem;
 cursor: pointer;
 text-decoration: none;
+
+/* Style au survol */
+&:hover {
+color: #10ac84;
+}
 `

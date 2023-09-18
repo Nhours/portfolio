@@ -34,6 +34,14 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', onScroll);
     }, [])
 
+    // Fonction pour faire remonter la page en haut
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Pour une animation de défilement en douceur
+        });
+    };
+
     return (
         <NavbarContainer
             bgColor={sticky ? theme.colors.primary : 'transparent'}>
@@ -47,7 +55,7 @@ const Navbar = () => {
                     <FlexContainer justify="space-between" responsiveFlex>
 
                         {/* left-logo */}
-                        <Logo>
+                        <Logo onClick={scrollToTop}>
                             Port<BlueText>Folio</BlueText>
                         </Logo>
 

@@ -39,7 +39,7 @@ const MyProjects = () => {
                 initial="hidden"
                 whileInView="visible"
                 size="h2">
-                What <BlueText>I have built</BlueText>.
+                What <BlueText>I have built</BlueText>
             </Heading>
 
             {projectDetails.map((project) => (

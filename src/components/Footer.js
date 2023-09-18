@@ -60,7 +60,7 @@ const Footer = () => {
                     whileInView="visible"
                     >
                         <PaddingContainer bottom="2rem">
-                            <FormLabel>Name:</FormLabel>
+                            <FormLabel>Name :</FormLabel>
                             <FormInput
                             type="text"
                             placeholder="Enter your name"
@@ -68,7 +68,7 @@ const Footer = () => {
                         </PaddingContainer>
 
                         <PaddingContainer bottom="2rem">
-                            <FormLabel>Email:</FormLabel>
+                            <FormLabel>Email :</FormLabel>
                             <FormInput
                             type="email"
                             placeholder="Enter your email"
@@ -76,7 +76,7 @@ const Footer = () => {
                         </PaddingContainer>
 
                         <PaddingContainer bottom="2rem">
-                            <FormLabel>Message:</FormLabel>
+                            <FormLabel>Message :</FormLabel>
                             <FormInput
                             as="textarea"
                             placeholder="Enter your message"

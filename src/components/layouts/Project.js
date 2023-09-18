@@ -56,7 +56,7 @@ const Project = ({ data }) => {
                     {data.project_desc}
                 </ParaText>
 
-                <Button>Visit website</Button>
+                <Button>Visiter le site</Button>
             </motion.div>
 
             {/* right-section-project-image */}
