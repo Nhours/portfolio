@@ -42,7 +42,7 @@ const register = (req, res) => {
         }
 
         if (results.length > 0) {
-            // L'adresse e-mail existe déjà dans la table "admin"
+            // L'adresse e-mail existe déjà dans la table "portfolio"
             return res.status(400).json({ message: 'Cette adresse e-mail est déjà enregistrée.' });
         }
 
@@ -59,7 +59,7 @@ const register = (req, res) => {
             }
 
             // Insertion de l'utilisateur dans la base de données
-            const insertQuery = 'INSERT INTO admin (email, password) VALUES (?, ?)';
+            const insertQuery = 'INSERT INTO portfolio (email, password) VALUES (?, ?)';
             conn.query(insertQuery, [email, hashedPassword], (insertErr) => {
                 if (insertErr) {
                     console.error('Erreur lors de l\'insertion des données :', insertErr);
@@ -78,7 +78,7 @@ const login = (req, res) => {
     const { email, password } = req.body;
 
     // Vérification de l'existence de l'utilisateur
-    const checkUserQuery = 'SELECT * FROM admin WHERE email = ?';
+    const checkUserQuery = 'SELECT * FROM portfolio WHERE email = ?';
     conn.query(checkUserQuery, [email], async (checkErr, results) => {
         if (checkErr) {
             return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'utilisateur' });

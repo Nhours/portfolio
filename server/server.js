@@ -32,7 +32,7 @@ app.use(cors({
 }));
 
 // Routes
-app.use('/api', authRoutes);
+app.use('/', authRoutes);
 
 // Configuration et lancement du serveur
 const start = async () => {
