@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
     PaddingContainer,
     Heading,
-    BlueText,
+    GreenText,
 } from '../styles/Global.styled';
 
 import { projectDetails } from '../utils/Data';
@@ -39,7 +39,7 @@ const MyProjects = () => {
                 initial="hidden"
                 whileInView="visible"
                 size="h2">
-                What <BlueText>I have built</BlueText>
+                What <GreenText>I have built</GreenText>
             </Heading>
 
             {projectDetails.map((project) => (

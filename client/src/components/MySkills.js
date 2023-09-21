@@ -7,7 +7,7 @@ import {
   FlexContainer,
   Heading,
   IconContainer,
-  BlueText,
+  GreenText,
   ParaText,
 } from '../styles/Global.styled';
 
@@ -68,7 +68,7 @@ const MySkills = () => {
           </Heading>
 
           <Heading as="h2" size="h2" top="0.5rem">
-            What <BlueText> I can do</BlueText>
+            What <GreenText> I can do</GreenText>
           </Heading>
 
           <ParaText top="2rem" bottom="1.5rem">

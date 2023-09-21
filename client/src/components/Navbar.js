@@ -6,7 +6,7 @@ import {
     FlexContainer,
     PaddingContainer,
     Container,
-    BlueText,
+    GreenText,
 } from '../styles/Global.styled';
 
 // Import Navbar Styled
@@ -56,7 +56,7 @@ const Navbar = () => {
 
                         {/* left-logo */}
                         <Logo onClick={scrollToTop}>
-                            Port<BlueText>Folio</BlueText>
+                            Port<GreenText>Folio</GreenText>
                         </Logo>
 
                         {/* right-menu-icon */}

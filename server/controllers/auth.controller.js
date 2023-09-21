@@ -35,7 +35,7 @@ const register = (req, res) => {
     }
 
     // Vérification de l'existence de l'email
-    const checkEmailQuery = 'SELECT * FROM portfolio WHERE email = ?';
+    const checkEmailQuery = 'SELECT * FROM admin WHERE email_admin = ?';
     conn.query(checkEmailQuery, [email], (checkErr, results) => {
         if (checkErr) {
             return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'adresse e-mail' });
@@ -59,7 +59,7 @@ const register = (req, res) => {
             }
 
             // Insertion de l'utilisateur dans la base de données
-            const insertQuery = 'INSERT INTO portfolio (email, password) VALUES (?, ?)';
+            const insertQuery = 'INSERT INTO admin (email_admin, password_admin) VALUES (?, ?)';
             conn.query(insertQuery, [email, hashedPassword], (insertErr) => {
                 if (insertErr) {
                     console.error('Erreur lors de l\'insertion des données :', insertErr);
@@ -78,7 +78,7 @@ const login = (req, res) => {
     const { email, password } = req.body;
 
     // Vérification de l'existence de l'utilisateur
-    const checkUserQuery = 'SELECT * FROM portfolio WHERE email = ?';
+    const checkUserQuery = 'SELECT * FROM admin WHERE email_admin = ?';
     conn.query(checkUserQuery, [email], async (checkErr, results) => {
         if (checkErr) {
             return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'utilisateur' });
@@ -90,12 +90,18 @@ const login = (req, res) => {
 
         const user = results[0];
 
+        // Ajoutez un message de débogage pour voir l'e-mail de l'utilisateur
+        console.log('Utilisateur trouvé:', user.email);
+
         // Vérification du mot de passe
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Mot de passe incorrect' });
         }
+
+        // Ajoutez un message de débogage pour voir si la comparaison du mot de passe réussit
+        console.log('Mot de passe correspond:', passwordMatch);
 
         // Génération du jeton JWT pour la connexion
         const token = jwt.sign({ email: user.email }, jwt_secret, { expiresIn: '30m' });

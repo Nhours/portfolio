@@ -86,7 +86,7 @@ font-size: ${({ size }) => {
 }
 `
 
-export const BlueText = styled.span`
+export const GreenText = styled.span`
 color: ${({ theme }) => theme.colors.secondary};
 `
 

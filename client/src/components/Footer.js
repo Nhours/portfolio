@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
     PaddingContainer,
     Heading,
-    BlueText,
+    GreenText,
     FlexContainer,
     Button,
 } from '../styles/Global.styled';
@@ -47,7 +47,7 @@ const Footer = () => {
                 align="center"
                 top="0.5rem"
             >
-                Contact <BlueText>Me Here</BlueText>
+                Contact <GreenText>Me Here</GreenText>
             </Heading>
 
             <PaddingContainer top="3rem">
