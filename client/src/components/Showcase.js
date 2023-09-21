@@ -364,7 +364,7 @@ const Showcase = () => {
                                 as="h2"
                                 size="h2"
                             >
-                                <GreenText>Connexion</GreenText>
+                                <GreenText>Connexion admin</GreenText>
                             </Heading>
                             <input
                                 type="text"
@@ -378,9 +378,8 @@ const Showcase = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <Button 
-                            bottom="2rem"
-                            onClick={handleLogin}>Se connecter</Button>
+                            <Button
+                                onClick={handleLogin}>Se connecter</Button>
                             <Button onClick={() => setShowModal(false)}>Fermer</Button>
                         </div>
                     </div>
