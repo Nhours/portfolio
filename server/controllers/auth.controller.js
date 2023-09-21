@@ -95,18 +95,12 @@ const login = (req, res) => {
 
         const user = results[0];
 
-        // Ajoutez un message de débogage pour voir l'e-mail de l'utilisateur
-        console.log('Utilisateur trouvé:', user.email_admin);
-
         // Vérification du mot de passe
         const passwordMatch = await bcrypt.compare(password, user.password_admin);
 
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Mot de passe incorrect' });
         }
-
-        // Ajoutez un message de débogage pour voir si la comparaison du mot de passe réussit
-        console.log('Mot de passe correspond:', passwordMatch);
 
         // Génération du jeton JWT pour la connexion
         const token = jwt.sign({ email: user.email_admin }, jwt_secret, { expiresIn: '30m' });
