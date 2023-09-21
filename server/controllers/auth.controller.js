@@ -35,7 +35,7 @@ const register = (req, res) => {
     }
 
     // Vérification de l'existence de l'email
-    const checkEmailQuery = 'SELECT * FROM admin WHERE email = ?';
+    const checkEmailQuery = 'SELECT * FROM portfolio WHERE email = ?';
     conn.query(checkEmailQuery, [email], (checkErr, results) => {
         if (checkErr) {
             return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'adresse e-mail' });
