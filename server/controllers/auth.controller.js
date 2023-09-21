@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
-// const { response } = require('express');
+const email_admin = process.env.EMAIL_ADMIN;
 const jwt_secret = process.env.JWT_SECRET;
 
 require('dotenv').config();
@@ -27,51 +27,56 @@ conn.connect((err) => {
 // Fonction pour s'inscrire
 const register = (req, res) => {
     const { email, password } = req.body;
-    const email_admin = process.env.EMAIL_ADMIN;
-
-    // Vérifie si l'e-mail fourni correspond à l'e-mail admin
-    if (email !== email_admin) {
-        return res.status(403).json({ message: 'Accès non autorisé' });
-    }
 
     // Vérification de l'existence de l'email
     const checkEmailQuery = 'SELECT * FROM admin WHERE email_admin = ?';
-    conn.query(checkEmailQuery, [email], (checkErr, results) => {
+    conn.query(checkEmailQuery, [email], async (checkErr, results) => {
         if (checkErr) {
             return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'adresse e-mail' });
         }
 
         if (results.length > 0) {
-            // L'adresse e-mail existe déjà dans la table "portfolio"
+            // L'adresse e-mail existe déjà dans la table "admin"
             return res.status(400).json({ message: 'Cette adresse e-mail est déjà enregistrée.' });
         }
 
         // Vérification des conditions regex du mot de passe
-        if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*]/.test(password)) {
-            return res.status(400).json({ message: 'Le mot de passe ne respecte pas les critères de sécurité.' });
+        if (password.length < 8) {
+            return res.status(400).json({ message: 'Le mot de passe doit contenir au moins 8 caractères' });
+        }
+        if (!/[A-Z]/.test(password)) {
+            return res.status(400).json({ message: 'Le mot de passe doit contenir au moins une lettre majuscule' });
+        }
+        if (!/[a-z]/.test(password)) {
+            return res.status(400).json({ message: 'Le mot de passe doit contenir au moins une lettre minuscule' });
+        }
+        if (!/\d/.test(password)) {
+            return res.status(400).json({ message: 'Le mot de passe doit contenir au moins un chiffre' });
+        }
+        if (!/[!@#$%^&*]/.test(password)) {
+            return res.status(400).json({ message: 'Le mot de passe doit contenir au moins un caractère spécial (!@#$%^&*)' });
         }
 
-        // Hashage du mot de passe
-        bcrypt.hash(password, 10, (hashErr, hashedPassword) => {
-            if (hashErr) {
-                console.error('Erreur lors du hashage du mot de passe :', hashErr);
-                return res.status(500).json({ error: 'Erreur lors du hashage du mot de passe' });
-            }
+        try {
+            // Hashage du mot de passe
+            const hashedPassword = await bcrypt.hash(password, 10);
 
             // Insertion de l'utilisateur dans la base de données
-            const insertQuery = 'INSERT INTO admin (email_admin, password_admin) VALUES (?, ?)';
-            conn.query(insertQuery, [email, hashedPassword], (insertErr) => {
-                if (insertErr) {
-                    console.error('Erreur lors de l\'insertion des données :', insertErr);
-                    return res.status(500).json({ error: 'Erreur lors de l\'insertion des données' });
+            const query = 'INSERT INTO admin (email_admin, password_admin) VALUES (?, ?)';
+            conn.query(query, [email, hashedPassword], (err) => {
+                if (err) {
+                    console.error('Erreur lors de l\'insertion des données : ' + err);
+                    res.status(500).json({ error: 'Erreur lors de l\'insertion des données' });
+                } else {
+                    res.status(200).json({ message: 'Utilisateur enregistré' });
                 }
-
-                // Renvoyer la réponse ici
-                res.status(200).json({ message: 'Utilisateur enregistré' });
             });
-        });
+        } catch (hashError) {
+            console.error('Erreur lors du hashage du mot de passe : ' + hashError);
+            res.status(500).json({ error: 'Erreur lors du hashage du mot de passe' });
+        }
     });
-};
+}
 
 // Fonction pour se connecter
 const login = (req, res) => {
@@ -91,10 +96,10 @@ const login = (req, res) => {
         const user = results[0];
 
         // Ajoutez un message de débogage pour voir l'e-mail de l'utilisateur
-        console.log('Utilisateur trouvé:', user.email);
+        console.log('Utilisateur trouvé:', user.email_admin);
 
         // Vérification du mot de passe
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        const passwordMatch = await bcrypt.compare(password, user.password_admin);
 
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Mot de passe incorrect' });
@@ -104,7 +109,7 @@ const login = (req, res) => {
         console.log('Mot de passe correspond:', passwordMatch);
 
         // Génération du jeton JWT pour la connexion
-        const token = jwt.sign({ email: user.email }, jwt_secret, { expiresIn: '30m' });
+        const token = jwt.sign({ email: user.email_admin }, jwt_secret, { expiresIn: '30m' });
 
         // Renvoyer la réponse ici
         res.status(200).json({ message: 'Connexion réussie', token });
