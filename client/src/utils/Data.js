@@ -83,7 +83,7 @@ export const projectDetails = [
         project_desc: "Ce projet demandait la création d'un CV numérique. L'un des objectifs était de produire une page représentative du CV avec une version optimisée pour les appareils mobiles en adoptant le concept Mobile First. Puis, une version adaptée aux ordinateurs en incorporant des fonctionnalités Javascript.",
         tech_stack: ['HTML', 'CSS', 'Javascript'],
         project_img: Project1,
-        project_url: 'https://www.youtube.com',
+        project_url: 'https://nhours.github.io/CV-en-ligne/',
         reverse: false,
     },
     {
