@@ -93,6 +93,7 @@ const deleteSkills = (req, res) => {
 // Projet
 const insertProjects = (req, res) => {
     const { project_name, project_desc, tech_stack, project_img, project_url, reverse } = req.body
+    console.log(req.body)
 
     if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !reverse) {
         return res.status(400).json({ error: 'Données incorrect' })
@@ -101,7 +102,7 @@ const insertProjects = (req, res) => {
     console.log('Données reçues du formulaire : ', req.body);
 
     const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`, `reverse`) VALUES (?,?,?,?,?,?)';
-    conn.query(query, [title, text, techno, image], (err) => {
+    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, reverse], (err) => {
         if (err) {
             console.error('erreur')
             res.status(500).json({ error: 'erreur' })
