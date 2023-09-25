@@ -24,8 +24,7 @@ import {
   fadeInRightVariant,
 } from '../../utils/Variants';
 
-const MySkills = ({IsInLogin}) => {
-  
+const MySkills = ({ IsInLogin }) => {
   return (
     <PaddingContainer
       id="Skills"
@@ -40,14 +39,15 @@ const MySkills = ({IsInLogin}) => {
         fullWidthChild
       >
         {/* left section */}
-        <SkillsCardContainer id="skillIcon"
+        <SkillsCardContainer
+          id="skillIcon"
           as={motion.div}
           variants={fadeInLeftVariant}
           initial="hidden"
           whileInView="visible"
         >
           {Skills.map((skill) => (
-            <SkillsCard>
+            <SkillsCard key={skill.id}>
               <IconContainer style={{ fontSize: '5rem' }} color="blue">
                 {skill.icon}
               </IconContainer>
@@ -55,16 +55,20 @@ const MySkills = ({IsInLogin}) => {
               <Heading as="h4" size="h4">
                 {skill.tech}
               </Heading>
+
+              {/* Display the ID only when in admin state */}
+              {IsInLogin && (
+                <ParaText as="p" top="0.5rem" bottom="0">
+                  ID: {skill.id}
+                </ParaText>
+              )}
             </SkillsCard>
           ))}
         </SkillsCardContainer>
-        {IsInLogin && (<button>Test</button>)}
+        {IsInLogin && <button>Test</button>}
 
         {/* right-section */}
-        <motion.div
-          variants={fadeInRightVariant}
-          initial="hidden"
-          whileInView="visible">
+        <motion.div variants={fadeInRightVariant} initial="hidden" whileInView="visible">
           <Heading as="h4" size="h4">
             MY SKILLS
           </Heading>
@@ -84,7 +88,7 @@ const MySkills = ({IsInLogin}) => {
         </motion.div>
       </FlexContainer>
     </PaddingContainer>
-  )
-}
+  );
+};
 
-export default MySkills
+export default MySkills;
