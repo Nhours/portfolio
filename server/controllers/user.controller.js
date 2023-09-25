@@ -22,7 +22,7 @@ const insertSkill = (req, res) => {
         })
     }
     console.log('Données reçues du formulaire : ', req.body);
-    const query = 'INSERT INTO `competences` (`text`) VALUES (?)';
+    const query = 'INSERT INTO `skills` (`text`) VALUES (?)';
     conn.query(query, [text], (err) => {
         if (err) {
             console.error('erreur')
@@ -35,7 +35,7 @@ const insertSkill = (req, res) => {
 
 const getAllSkills = (req, res) => {
 
-    const query = 'SELECT * FROM competences';
+    const query = 'SELECT * FROM skills';
     conn.query(query, (err, result) => {
         if (err) {
             console.error("Erreur lors de la récupération des données :" + err);
@@ -56,7 +56,7 @@ const updateSkills = (req, res) => {
         });
     }
 
-    const query = 'UPDATE `competences` SET `text` = ? WHERE id_Competences = ?';
+    const query = 'UPDATE `skills` SET `text` = ? WHERE id = ?';
     conn.query(query, [text, id_Competences], (err) => {
         if (err) {
             console.error("Erreur lors de la modification des données :" + err);
@@ -77,7 +77,7 @@ const deleteSkills = (req, res) => {
         })
     }
 
-    let query = `DELETE FROM competences WHERE id_Competences = ${userId}`
+    let query = `DELETE FROM skills WHERE id = ${userId}`
     conn.query(query, (err) => {
         if (err) {
             console.error("Erreur lors de la suppression des données :" + err);
@@ -91,17 +91,17 @@ const deleteSkills = (req, res) => {
 
 
 // Projet
-const insertProjet = (req, res) => {
-    const { title, text, github, link } = req.body
+const insertProjects = (req, res) => {
+    const { project_name, project_desc, tech_stack, project_img, project_url, reverse } = req.body
 
-    if (!title || !text || !github || !link) {
+    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !reverse) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
 
     console.log('Données reçues du formulaire : ', req.body);
 
-    const query = 'INSERT INTO `projet` (`title`, `text`, `github`, `link`) VALUES (?,?,?,?)';
-    conn.query(query, [title, text, github, link], (err) => {
+    const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`, `reverse`) VALUES (?,?,?,?,?,?)';
+    conn.query(query, [title, text, techno, image], (err) => {
         if (err) {
             console.error('erreur')
             res.status(500).json({ error: 'erreur' })
@@ -111,9 +111,9 @@ const insertProjet = (req, res) => {
     })
 }
 
-const getAllProjet = (req, res) => {
+const getAllProjects = (req, res) => {
 
-    const query = 'SELECT * FROM projet';
+    const query = 'SELECT * FROM projects';
 
     conn.query(query, (err, result) => {
         if (err) {
@@ -125,18 +125,18 @@ const getAllProjet = (req, res) => {
     })
 }
 
-const updateProjet = (req, res) => {
+const updateProjects = (req, res) => {
 
-    const { title, text, github, link } = req.body
+    const { project_name, project_desc, tech_stack, project_img, project_url, reverse } = req.body
 
-    if (!title || !text || !github || !link) {
+    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !reverse) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
 
     console.log('Données reçues du formulaire : ', req.body);
 
-    const query = 'UPDATE `projet` SET `title` = ?, `text` = ?, `github` = ?, `link` = ? Where id_projets = ?'
-    conn.query(query, [title, text, github, link, req.params.id], (err) => {
+    const query = 'UPDATE `projects` SET `project_name` = ?, `project_desc` = ?, `tech_stack` = ?, `project_img` = ?, `project_url` = ?, `reverse` = ? Where id = ?'
+    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, reverse, req.params.id], (err) => {
         if (err) {
             console.error("Erreur lors de la modification des données :" + err);
             res.status(500).json({ error: "Erreur lors de la modification des données" })
@@ -146,7 +146,7 @@ const updateProjet = (req, res) => {
     })
 }
 
-const deleteProjet = (req, res) => {
+const deleteProjects = (req, res) => {
 
     const userId = req.params.id
 
@@ -156,7 +156,7 @@ const deleteProjet = (req, res) => {
         })
     }
 
-    let query = `DELETE FROM projet WHERE id_projets = ${userId}`
+    let query = `DELETE FROM projects WHERE id = ${userId}`
     conn.query(query, (err) => {
         if (err) {
             console.error("Erreur lors de la suppression des données :" + err);
@@ -332,22 +332,22 @@ const deleteConnaissance = (req, res) => {
 
 module.exports = {
     getAllSkills,
-    getAllProjet,
+    getAllProjects,
     getAllExperience,
     getAllConnaissance,
 
     insertSkill,
-    insertProjet,
+    insertProjects,
     insertExperience,
     insertConnaissance,
 
     updateSkills,
-    updateProjet,
+    updateProjects,
     updateExperience,
     updateConnaissance,
 
     deleteSkills,
-    deleteProjet,
+    deleteProjects,
     deleteExperience,
     deleteConnaissance
 }

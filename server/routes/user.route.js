@@ -12,13 +12,13 @@ router.put('/updateSkill/:id', userController.updateSkills);
 router.delete('/deleteSkill/:id', userController.deleteSkills);
 
 // Récuperer les projets
-router.get('/getProjet', userController.getAllProjet);
+router.get('/getProjects', userController.getAllProjects);
 // Inserer un projet
-router.post('/insertProjet', userController.insertProjet);
+router.post('/insertProjects', userController.insertProjects);
 // Modifier un projet
-router.put('/updateProjet/:id', userController.updateProjet);
+router.put('/updateProjects/:id', userController.updateProjects);
 // Supprimer un projet
-router.delete('/deleteProjet/:id', userController.deleteProjet);
+router.delete('/deleteProjects/:id', userController.deleteProjects);
 
 // Récuperer les expériences
 router.get('/getExperience', userController.getAllExperience);
