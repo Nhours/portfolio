@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./utils/Theme"
 import { MainBody, Container } from "./styles/Global.styled";
@@ -11,16 +11,17 @@ import Footer from "./components/Contact/Contact";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
+  const [IsInLogin,setIsLogin] = useState(false)
   return (
     <ThemeProvider theme={theme}>
       <MainBody>
         <Navbar />
-        <Container>
-          <Showcase />
-          <MySkills />
-          <MyProjects />
+        <Container  >
+          <Showcase IsInLogin={IsInLogin} setIsLogin={setIsLogin} />
+          <MySkills IsInLogin={IsInLogin} setIsLogin={setIsLogin} />
+          <MyProjects IsInLogin={IsInLogin} setIsLogin={setIsLogin} />
           <Footer />
-        </Container>
+        </Container >
       </MainBody>
     </ThemeProvider>
   );

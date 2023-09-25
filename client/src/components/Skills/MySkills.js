@@ -24,7 +24,8 @@ import {
   fadeInRightVariant,
 } from '../../utils/Variants';
 
-const MySkills = () => {
+const MySkills = ({IsInLogin}) => {
+  
   return (
     <PaddingContainer
       id="Skills"
@@ -57,6 +58,7 @@ const MySkills = () => {
             </SkillsCard>
           ))}
         </SkillsCardContainer>
+        {IsInLogin && (<button>Test</button>)}
 
         {/* right-section */}
         <motion.div
@@ -81,7 +83,6 @@ const MySkills = () => {
           </ParaText>
         </motion.div>
       </FlexContainer>
-
     </PaddingContainer>
   )
 }

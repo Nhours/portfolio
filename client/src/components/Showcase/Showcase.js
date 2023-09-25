@@ -31,7 +31,8 @@ import {
     fadeInRightVariant,
 } from '../../utils/Variants';
 
-const Showcase = () => {
+const Showcase = ({IsInLogin,setIsLogin}) => {
+    
     const [showModal, setShowModal] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,6 +47,7 @@ const Showcase = () => {
             console.log("Connexion admin réussie");
             setIsAdmin(true); // Définir l'utilisateur en tant qu'admin
             setShowModal(false); // Fermer la modal après la connexion réussie
+            setIsLogin(true);
         } else {
             // échec de la connexion admin
             console.log("Échec de la connexion admin");
@@ -56,6 +58,7 @@ const Showcase = () => {
         // Déconnexion de l'admin
         setIsAdmin(false); // Réinitialiser l'état de l'admin
         setShowModal(false); // Fermer la modal après la déconnexion
+        setIsLogin(false);
     }
 
     return (
