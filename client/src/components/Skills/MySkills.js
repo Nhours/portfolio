@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 // Import Global Styles
@@ -17,7 +17,7 @@ import {
   SkillsCard,
 } from '../../styles/MySkills.styled';
 
-import { Skills } from '../../utils/Data';
+// import { Skills } from '../../utils/Data';
 
 import {
   fadeInLeftVariant,
@@ -25,6 +25,53 @@ import {
 } from '../../utils/Variants';
 
 const MySkills = ({ IsInLogin }) => {
+  const [skills, setSkills] = useState([]);
+  const [editingSkillId, setEditingSkillId] = useState(null);
+
+  useEffect(() => {
+    // Fonction pour charger les compétences depuis le backend
+    const fetchSkills = async () => {
+      try {
+        const response = await fetch('/api/getSkills'); // Remplacez par votre URL de l'API
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Données des compétences reçues :', data); // Vérifiez les données reçues
+          setSkills(data);
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des compétences :', error);
+      }
+    };
+  
+    fetchSkills();
+  }, []);
+
+  // Fonction pour mettre à jour une compétence
+  const handleSkillUpdate = async (updatedSkill) => {
+    try {
+      const response = await fetch(`/api/updateSkills/${updatedSkill.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedSkill),
+      });
+
+      if (response.ok) {
+        // Mise à jour réussie, mettez à jour l'état local des compétences
+        const updatedSkills = skills.map((skill) =>
+          skill.id === updatedSkill.id ? updatedSkill : skill
+        );
+        setSkills(updatedSkills);
+        setEditingSkillId(null); // Arrêtez l'édition
+      } else {
+        console.error('Erreur lors de la mise à jour de la compétence');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour de la compétence :', error);
+    }
+  };
+
   return (
     <PaddingContainer
       id="Skills"
@@ -46,23 +93,48 @@ const MySkills = ({ IsInLogin }) => {
           initial="hidden"
           whileInView="visible"
         >
-          {Skills.map((skill) => (
+          {skills.map((skill) => (
             <SkillsCard key={skill.id}>
-              <IconContainer style={{ fontSize: '5rem' }} color="blue">
-                {skill.icon}
-              </IconContainer>
-
-              <Heading as="h4" size="h4">
-                {skill.tech}
-              </Heading>
-
-              {/* Display the ID only when in admin state */}
-              {IsInLogin && (
-                <ParaText as="p" top="0.5rem" bottom="0">
-                  ID: {skill.id}
-                </ParaText>
-              )}
-            </SkillsCard>
+            {/* Afficher le formulaire de modification si l'ID de la compétence correspond à celui en cours d'édition */}
+            {editingSkillId === skill.id ? (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  // Mettez à jour la compétence avec les nouvelles valeurs
+                  handleSkillUpdate({
+                    id: skill.id,
+                    tech: e.target.tech.value,
+                    icon: e.target.icon.value,
+                  });
+                }}
+              >
+                <input type="text" name="tech" defaultValue={skill.tech} />
+                <input type="text" name="icon" defaultValue={skill.icon} />
+                <button type="submit">Mettre à jour</button>
+              </form>
+            ) : (
+              // Afficher les informations de la compétence si elle n'est pas en cours d'édition
+              <>
+                <IconContainer style={{ fontSize: '5rem' }} color="blue">
+                  {skill.icon}
+                </IconContainer>
+                <Heading as="h4" size="h4">
+                  {skill.tech}
+                </Heading>
+                {IsInLogin && (
+                  <ParaText as="p" top="0.5rem" bottom="0">
+                    ID: {skill.id}
+                  </ParaText>
+                )}
+                {IsInLogin && (
+                  <button onClick={() => setEditingSkillId(skill.id)}>
+                    Modifier
+                  </button>
+                )}
+              </>
+            )}
+          </SkillsCard>
+          
           ))}
         </SkillsCardContainer>
         {IsInLogin && <button>Test</button>}
