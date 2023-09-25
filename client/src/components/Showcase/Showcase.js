@@ -10,31 +10,32 @@ import {
     GreenText,
     IconContainer,
     Button
-} from '../styles/Global.styled';
+} from '../../styles/Global.styled';
 
 // Import Showcase Styles
 import {
     ShowcaseImageCard,
     ShowcaseParticleContainer,
     Particle,
-} from '../styles/Showcase.styled';
+} from '../../styles/Showcase.styled';
 
 // Importing react-icons
 import { BsLinkedin, BsTwitter, BsYoutube, BsInstagram } from "react-icons/bs";
 
 // Import asset
-import ShowcaseImg from '../assets/showcase-seb-img.png';
-import BackgroundImg from '../assets/particle.png';
+import ShowcaseImg from '../../assets/showcase-seb-img.png';
+import BackgroundImg from '../../assets/particle.png';
 
 import {
     fadeInLeftVariant,
     fadeInRightVariant,
-} from '../utils/Variants';
+} from '../../utils/Variants';
 
 const Showcase = () => {
     const [showModal, setShowModal] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false); // Nouvel état pour suivre si l'utilisateur est un admin
 
     const adminEmail = "alapideseb@hotmail.fr";
     const adminPassword = "Motdepasse123!"; // mot de passe admin complexe
@@ -43,6 +44,8 @@ const Showcase = () => {
         if (email === adminEmail && password === adminPassword) {
             // connexion admin réussie
             console.log("Connexion admin réussie");
+            setIsAdmin(true); // Définir l'utilisateur en tant qu'admin
+            setShowModal(false); // Fermer la modal après la connexion réussie
         } else {
             // échec de la connexion admin
             console.log("Échec de la connexion admin");
@@ -60,39 +63,50 @@ const Showcase = () => {
             responsiveRight="1rem"
             responsiveTop="8rem"
         >
-            <FlexContainer id="intro" align="center" fullWidthChild>
+            <FlexContainer align="center" fullWidthChild>
                 {/* --left-content-- */}
                 <motion.div
                     variants={fadeInLeftVariant}
                     initial="hidden"
                     whileInView="visible"
                 >
-                    <Heading as="h4" size="h4">Bonjour !</Heading>
+                    {isAdmin ? (
+                        <>
+                            <Heading as="h2" size="h2">
+                                Welcome back <GreenText>Master</GreenText>
+                            </Heading>
+                            {/* Supprimez les autres éléments de texte lorsque l'utilisateur est un admin */}
+                        </>
+                    ) : (
+                        <>
+                            <Heading as="h4" size="h4">Bonjour !</Heading>
 
-                    <Heading
-                        as="h2"
-                        size="h2"
-                        top="0.5rem"
-                        bottom="1rem"
-                    >
-                        Je suis <GreenText>Sébastien ALAPIDE</GreenText>
-                    </Heading>
+                            <Heading
+                                as="h2"
+                                size="h2"
+                                top="0.5rem"
+                                bottom="1rem"
+                            >
+                                Je suis <GreenText>ALAPIDE Sébastien</GreenText>
+                            </Heading>
 
-                    <Heading
-                        as="h3"
-                        size="h3"
-                        top="0.5rem"
-                        bottom="1rem"
-                    >
-                        Je suis <GreenText>Développeur Web</GreenText>
-                    </Heading>
+                            <Heading
+                                as="h3"
+                                size="h3"
+                                top="0.5rem"
+                                bottom="1rem"
+                            >
+                                Je suis <GreenText>Développeur Web</GreenText>
+                            </Heading>
 
-                    <ParaText as="p" top="2rem" bottom="4rem">
-                        Bonjour, je m'appelle Sébastien ALAPIDE et je me forme au métier de développeur web front-end.
-                    </ParaText>
+                            <ParaText as="p" top="2rem" bottom="4rem">
+                                Bonjour, je m'appelle ALAPIDE Sébastien et je me forme au métier de développeur web front-end.
+                            </ParaText>
+                        </>
+                    )}
 
                     {/* social-icons */}
-                    <FlexContainer id="social" gap="20px" responsiveFlex>
+                    <FlexContainer gap="20px" responsiveFlex>
                         <IconContainer color="white" style={{ fontSize: '1.5rem' }}>
                             <BsLinkedin />
                         </IconContainer>
@@ -120,7 +134,7 @@ const Showcase = () => {
                     justify="flex-end"
                 >
                     <ShowcaseParticleContainer>
-                        <ShowcaseImageCard id="imageProfil">
+                        <ShowcaseImageCard>
                             <img src={ShowcaseImg} alt="showcase" />
                         </ShowcaseImageCard>
                         {/* Particule supérieure avec le gestionnaire d'événements de clic */}
@@ -192,27 +206,31 @@ const Showcase = () => {
                 {showModal && (
                     <div className="modal">
                         <div className="modal-content">
-                            <Heading
-                                as="h2"
-                                size="h2"
-                            >
-                                <GreenText>Connexion admin</GreenText>
-                            </Heading>
-                            <input
-                                type="text"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <input
-                                type="password"
-                                placeholder="Mot de passe"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <Button
-                                onClick={handleLogin}>Se connecter</Button>
-                            <Button onClick={() => setShowModal(false)}>Fermer</Button>
+                            {isAdmin ? ( // Vérifiez si l'utilisateur est un admin
+                                <Heading as="h2" size="h2">
+                                    Bienvenue, Master!
+                                </Heading>
+                            ) : (
+                                <div>
+                                    <Heading as="h2" size="h2">
+                                        <GreenText>Connexion admin</GreenText>
+                                    </Heading>
+                                    <input
+                                        type="text"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <input
+                                        type="password"
+                                        placeholder="Mot de passe"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <Button onClick={handleLogin}>Se connecter</Button>
+                                    <Button onClick={() => setShowModal(false)}>Fermer</Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}

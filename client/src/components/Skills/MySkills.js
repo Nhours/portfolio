@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { motion } from 'framer-motion';
 
 // Import Global Styles
@@ -9,20 +9,20 @@ import {
   IconContainer,
   GreenText,
   ParaText,
-} from '../styles/Global.styled';
+} from '../../styles/Global.styled';
 
 // Import My Skills styles
 import {
   SkillsCardContainer,
   SkillsCard,
-} from '../styles/MySkills.styled';
+} from '../../styles/MySkills.styled';
 
-import { Skills } from '../utils/Data';
+import { Skills } from '../../utils/Data';
 
 import {
   fadeInLeftVariant,
   fadeInRightVariant,
-} from '../utils/Variants';
+} from '../../utils/Variants';
 
 const MySkills = () => {
   return (
@@ -39,7 +39,7 @@ const MySkills = () => {
         fullWidthChild
       >
         {/* left section */}
-        <SkillsCardContainer
+        <SkillsCardContainer id="skillIcon"
           as={motion.div}
           variants={fadeInLeftVariant}
           initial="hidden"
@@ -60,9 +60,9 @@ const MySkills = () => {
 
         {/* right-section */}
         <motion.div
-        variants={fadeInRightVariant}
-        initial="hidden"
-        whileInView="visible">
+          variants={fadeInRightVariant}
+          initial="hidden"
+          whileInView="visible">
           <Heading as="h4" size="h4">
             MY SKILLS
           </Heading>
@@ -71,11 +71,9 @@ const MySkills = () => {
             What <GreenText> I can do</GreenText>
           </Heading>
 
-          <ParaText top="2rem" bottom="1.5rem">
+          <ParaText id="desc" top="2rem" bottom="1.5rem">
             As a Developer, I have a wide range of experience in front-end development. I am proficient in Javascript, React, HTML and CSS. My strong experience in building responsive and dynamic user interfaces using React has allowed me to create engaging and interactive web applications.
-          </ParaText>
 
-          <ParaText>
             I have experience in using React for building scalable
             and maintainable applications. This has allowed me to
             create efficient and sustainable code that can adept

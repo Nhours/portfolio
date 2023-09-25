@@ -6,12 +6,12 @@ import {
     PaddingContainer,
     Heading,
     GreenText,
-} from '../styles/Global.styled';
+} from '../../styles/Global.styled';
 
-import { projectDetails } from '../utils/Data';
-import Project from './layouts/Project';
+import { projectDetails } from '../../utils/Data';
+import Project from '../layouts/Project';
 
-import { fadeInTopVariant } from '../utils/Variants';
+import { fadeInTopVariant } from '../../utils/Variants';
 
 const MyProjects = () => {
     return (
@@ -44,7 +44,7 @@ const MyProjects = () => {
 
             {projectDetails.map((project) => (
                 <PaddingContainer key={project.id} top="5rem" bottom="5rem">
-                    <Project data={project}/>
+                    <Project data={project} />
                 </PaddingContainer>
             ))}
 

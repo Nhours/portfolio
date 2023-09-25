@@ -4,22 +4,22 @@ import { theme } from "./utils/Theme"
 import { MainBody, Container } from "./styles/Global.styled";
 
 // Import components
-import Showcase from "./components/Showcase";
-import MySkills from "./components/MySkills";
-import MyProjects from "./components/MyProjects";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+import Showcase from "./components/Showcase/Showcase";
+import MySkills from "./components/Skills/MySkills";
+import MyProjects from "./components/Projects/MyProjects";
+import Footer from "./components/Contact/Contact";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <MainBody>
-        <Navbar/>
+        <Navbar />
         <Container>
           <Showcase />
           <MySkills />
           <MyProjects />
-          <Footer/>
+          <Footer />
         </Container>
       </MainBody>
     </ThemeProvider>

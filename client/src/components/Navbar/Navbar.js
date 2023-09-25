@@ -7,18 +7,18 @@ import {
     PaddingContainer,
     Container,
     GreenText,
-} from '../styles/Global.styled';
+} from '../../styles/Global.styled';
 
 // Import Navbar Styled
 import {
     NavbarContainer,
     Logo,
     MenuIcon,
-} from '../styles/Navbar.styled';
+} from '../../styles/Navbar.styled';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { theme } from "../utils/Theme";
-import NavMenu from './layouts/NavMenu';
+import { theme } from "../../utils/Theme";
+import NavMenu from '../layouts/NavMenu';
 
 const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false);
