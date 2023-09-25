@@ -52,6 +52,12 @@ const Showcase = () => {
         }
     }
 
+    const handleLogout = () => {
+        // Déconnexion de l'admin
+        setIsAdmin(false); // Réinitialiser l'état de l'admin
+        setShowModal(false); // Fermer la modal après la déconnexion
+    }
+
     return (
         <PaddingContainer
             id="Home"
@@ -207,9 +213,12 @@ const Showcase = () => {
                     <div className="modal">
                         <div className="modal-content">
                             {isAdmin ? ( // Vérifiez si l'utilisateur est un admin
-                                <Heading as="h2" size="h2">
-                                    Bienvenue, Master!
-                                </Heading>
+                                <div>
+                                    <Heading as="h2" size="h2">
+                                        Bienvenue, Master!
+                                    </Heading>
+                                    <Button onClick={handleLogout}>Déconnexion</Button>
+                                </div>
                             ) : (
                                 <div>
                                     <Heading as="h2" size="h2">
