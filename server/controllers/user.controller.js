@@ -12,18 +12,19 @@ const conn = mysql.createConnection({
 })
 
 // SKILLS
-const insertSkill = (req, res) => {
+const insertSkills = (req, res) => {
     // Extration des données du corps de la requete
-    const { text } = req.body
+    const { tech, icon } = req.body
+    console.log(req.body)
 
-    if (!text) {
+    if (!tech, !icon) {
         return res.status(400).json({
             error: 'Données incorrect'
         })
     }
     console.log('Données reçues du formulaire : ', req.body);
-    const query = 'INSERT INTO `skills` (`text`) VALUES (?)';
-    conn.query(query, [text], (err) => {
+    const query = 'INSERT INTO `skills` (`tech`, `icon`) VALUES (?,?)';
+    conn.query(query, [tech, icon], (err) => {
         if (err) {
             console.error('erreur')
             res.status(500).json({ error: 'erreur' })
@@ -47,17 +48,19 @@ const getAllSkills = (req, res) => {
 }
 
 const updateSkills = (req, res) => {
-    const { text } = req.body;
-    const id_Competences = req.params.id;
+    const { tech, icon } = req.body;
+    const id = req.params.id;
 
-    if (!text) {
+    console.log(req.body);
+
+    if (!tech, !icon) {
         return res.status(400).json({
             error: 'Données incorrectes'
         });
     }
 
-    const query = 'UPDATE `skills` SET `text` = ? WHERE id = ?';
-    conn.query(query, [text, id_Competences], (err) => {
+    const query = 'UPDATE `skills` SET `tech` = ?, `icon` = ? Where id = ?';
+    conn.query(query, [tech, icon, id], (err) => {
         if (err) {
             console.error("Erreur lors de la modification des données :" + err);
             res.status(500).json({ error: "Erreur lors de la modification des données" });
@@ -93,7 +96,6 @@ const deleteSkills = (req, res) => {
 // Projet
 const insertProjects = (req, res) => {
     const { project_name, project_desc, tech_stack, project_img, project_url, reverse } = req.body
-    console.log(req.body)
 
     if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !reverse) {
         return res.status(400).json({ error: 'Données incorrect' })
@@ -337,7 +339,7 @@ module.exports = {
     getAllExperience,
     getAllConnaissance,
 
-    insertSkill,
+    insertSkills,
     insertProjects,
     insertExperience,
     insertConnaissance,

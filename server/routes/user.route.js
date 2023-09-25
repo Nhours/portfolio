@@ -5,11 +5,11 @@ const userController = require('../controllers/user.controller');
 // Récuperer les compétences
 router.get('/getSkills', userController.getAllSkills);
 // Inserer une compétence
-router.post('/insertSkill', userController.insertSkill);
+router.post('/insertSkills', userController.insertSkills);
 // Modifier une compétence
-router.put('/updateSkill/:id', userController.updateSkills);
+router.put('/updateSkills/:id', userController.updateSkills);
 // Supprimer une compétence
-router.delete('/deleteSkill/:id', userController.deleteSkills);
+router.delete('/deleteSkills/:id', userController.deleteSkills);
 
 // Récuperer les projets
 router.get('/getProjects', userController.getAllProjects);
