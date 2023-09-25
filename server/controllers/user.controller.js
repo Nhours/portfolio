@@ -51,8 +51,6 @@ const updateSkills = (req, res) => {
     const { tech, icon } = req.body;
     const id = req.params.id;
 
-    console.log(req.body);
-
     if (!tech, !icon) {
         return res.status(400).json({
             error: 'Données incorrectes'
