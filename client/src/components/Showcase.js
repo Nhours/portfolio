@@ -60,7 +60,7 @@ const Showcase = () => {
             responsiveRight="1rem"
             responsiveTop="8rem"
         >
-            <FlexContainer align="center" fullWidthChild>
+            <FlexContainer id="intro" align="center" fullWidthChild>
                 {/* --left-content-- */}
                 <motion.div
                     variants={fadeInLeftVariant}
@@ -92,7 +92,7 @@ const Showcase = () => {
                     </ParaText>
 
                     {/* social-icons */}
-                    <FlexContainer gap="20px" responsiveFlex>
+                    <FlexContainer id="social" gap="20px" responsiveFlex>
                         <IconContainer color="white" style={{ fontSize: '1.5rem' }}>
                             <BsLinkedin />
                         </IconContainer>
@@ -120,7 +120,7 @@ const Showcase = () => {
                     justify="flex-end"
                 >
                     <ShowcaseParticleContainer>
-                        <ShowcaseImageCard>
+                        <ShowcaseImageCard id="imageProfil">
                             <img src={ShowcaseImg} alt="showcase" />
                         </ShowcaseImageCard>
                         {/* Particule supérieure avec le gestionnaire d'événements de clic */}

@@ -2,9 +2,10 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
 const authRoutes = require('./routes/auth.route')
+const userRoutes = require('./routes/user.route')
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
 
 
 // Connection à la base de données.
@@ -32,7 +33,7 @@ app.use(cors({
 }));
 
 // Routes
-app.use('/api', authRoutes);
+app.use('/api', authRoutes, userRoutes);
 
 // Configuration et lancement du serveur
 const start = async () => {
