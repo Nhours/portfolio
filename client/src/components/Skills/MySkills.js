@@ -32,24 +32,25 @@ const MySkills = ({ IsInLogin }) => {
     // Fonction pour charger les compétences depuis le backend
     const fetchSkills = async () => {
       try {
-        const response = await fetch('/api/getSkills'); // Remplacez par votre URL de l'API
+        const response = await fetch('http://127.0.0.1:8000/api/getSkills');
         if (response.ok) {
           const data = await response.json();
-          console.log('Données des compétences reçues :', data); // Vérifiez les données reçues
+          // console.log('Données des compétences reçues :', data);
           setSkills(data);
+        } else {
+          console.error('Réponse HTTP non OK :', response.status, response.statusText);
         }
       } catch (error) {
-        console.error('Erreur lors du chargement des compétences :', error);
+        console.error('Erreur lors du chargement des compétences :', error.message);
       }
     };
-  
     fetchSkills();
   }, []);
 
   // Fonction pour mettre à jour une compétence
   const handleSkillUpdate = async (updatedSkill) => {
     try {
-      const response = await fetch(`/api/updateSkills/${updatedSkill.id}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/updateSkills/${updatedSkill.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

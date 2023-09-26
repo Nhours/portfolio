@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware cors pour gérer les requêtes Cross-Origin Resource Sharing (CORS)
 app.use(cors({
-    origin: 'http://127.0.0.1:8000',
+    origin: 'http://localhost:3000',
     optionsSuccessStatus: 200
 }));
 
