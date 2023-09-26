@@ -17,8 +17,6 @@ import {
   SkillsCard,
 } from '../../styles/MySkills.styled';
 
-// import { Skills } from '../../utils/Data';
-
 import {
   fadeInLeftVariant,
   fadeInRightVariant,
@@ -47,6 +45,38 @@ const MySkills = ({ IsInLogin }) => {
     fetchSkills();
   }, []);
 
+  const [newSkill, setNewSkill] = useState({
+    tech: '',
+    icon: '',
+  });
+
+  // Fonction pour ajouter une compétence
+  const handleSkillAdd = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/insertSkills', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newSkill),
+      });
+
+      if (response.ok) {
+        // Ajout réussi, mettez à jour l'état local des compétences en ajoutant la nouvelle compétence
+        const addedSkill = await response.json();
+        setSkills([...skills, addedSkill]);
+        setNewSkill({
+          tech: '',
+          icon: '',
+        });
+      } else {
+        console.error('Erreur lors de l\'ajout de la compétence');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout de la compétence :', error);
+    }
+  };
+
   // Fonction pour mettre à jour une compétence
   const handleSkillUpdate = async (updatedSkill) => {
     try {
@@ -73,6 +103,25 @@ const MySkills = ({ IsInLogin }) => {
     }
   };
 
+  // Fonction pour supprimer une compétence
+  const handleSkillDelete = async (skillId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/deleteSkills/${skillId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Suppression réussie, mettez à jour l'état local des compétences en les filtrant
+        const updatedSkills = skills.filter((skill) => skill.id !== skillId);
+        setSkills(updatedSkills);
+      } else {
+        console.error('Erreur lors de la suppression de la compétence');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la compétence :', error);
+    }
+  };
+
   return (
     <PaddingContainer
       id="Skills"
@@ -96,49 +145,73 @@ const MySkills = ({ IsInLogin }) => {
         >
           {skills.map((skill) => (
             <SkillsCard key={skill.id}>
-            {/* Afficher le formulaire de modification si l'ID de la compétence correspond à celui en cours d'édition */}
-            {editingSkillId === skill.id ? (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  // Mettez à jour la compétence avec les nouvelles valeurs
-                  handleSkillUpdate({
-                    id: skill.id,
-                    tech: e.target.tech.value,
-                    icon: e.target.icon.value,
-                  });
-                }}
-              >
-                <input type="text" name="tech" defaultValue={skill.tech} />
-                <input type="text" name="icon" defaultValue={skill.icon} />
-                <button type="submit">Mettre à jour</button>
-              </form>
-            ) : (
-              // Afficher les informations de la compétence si elle n'est pas en cours d'édition
-              <>
-                <IconContainer style={{ fontSize: '5rem' }} color="blue">
-                  {skill.icon}
-                </IconContainer>
-                <Heading as="h4" size="h4">
-                  {skill.tech}
-                </Heading>
-                {IsInLogin && (
-                  <ParaText as="p" top="0.5rem" bottom="0">
-                    ID: {skill.id}
-                  </ParaText>
-                )}
-                {IsInLogin && (
-                  <button onClick={() => setEditingSkillId(skill.id)}>
-                    Modifier
-                  </button>
-                )}
-              </>
-            )}
-          </SkillsCard>
-          
+              {/* Afficher le formulaire de modification si l'ID de la compétence correspond à celui en cours d'édition */}
+              {editingSkillId === skill.id ? (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    // Mettez à jour la compétence avec les nouvelles valeurs
+                    handleSkillUpdate({
+                      id: skill.id,
+                      tech: e.target.tech.value,
+                      icon: e.target.icon.value,
+                    });
+                  }}
+                >
+                  <input type="text" name="tech" defaultValue={skill.tech} />
+                  <input type="text" name="icon" defaultValue={skill.icon} />
+                  <button type="submit">Mettre à jour</button>
+                </form>
+              ) : (
+                // Afficher les informations de la compétence si elle n'est pas en cours d'édition
+                <>
+                  <IconContainer style={{ fontSize: '5rem' }} color="blue">
+                    {skill.icon}
+                  </IconContainer>
+                  <Heading as="h4" size="h4">
+                    {skill.tech}
+                  </Heading>
+                  {IsInLogin && (
+                    <ParaText as="p" top="0.5rem" bottom="0">
+                      ID: {skill.id}
+                    </ParaText>
+                  )}
+                  {IsInLogin && (
+                    <button onClick={() => setEditingSkillId(skill.id)}>Modifier</button>
+                  )}
+                  {IsInLogin && (
+                    <button onClick={() => handleSkillDelete(skill.id)}>Supprimer</button>
+                  )}
+                </>
+              )}
+            </SkillsCard>
           ))}
+          {IsInLogin && (
+          <div>
+            {/* Formulaire pour ajouter une nouvelle compétence */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSkillAdd();
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Nom de la compétence"
+                value={newSkill.tech}
+                onChange={(e) => setNewSkill({ ...newSkill, tech: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Icône de la compétence"
+                value={newSkill.icon}
+                onChange={(e) => setNewSkill({ ...newSkill, icon: e.target.value })}
+              />
+              <button type="submit">Ajouter</button>
+            </form>
+          </div>
+        )}
         </SkillsCardContainer>
-        {IsInLogin && <button>Test</button>}
 
         {/* right-section */}
         <motion.div variants={fadeInRightVariant} initial="hidden" whileInView="visible">
