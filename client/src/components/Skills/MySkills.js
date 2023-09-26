@@ -157,20 +157,22 @@ const MySkills = ({ IsInLogin }) => {
                   <button type="submit">Mettre à jour</button>
                 </form>
               ) : (
-                <>
+                  <>
+                    <IconContainer style={{ fontSize: '0.5rem' }} color="blue">
                   <img
                     src={skill.icon} // Utilisez l'URL de l'image stockée dans la base de données
                     alt={skill.tech} // Utilisez le nom de la compétence comme texte alternatif
                     style={{ width: '50px', height: '50px' }} // Ajustez la taille de l'image selon vos besoins
-                  />
+                      />
+                      </IconContainer>
                   <Heading as="h4" size="h4">
                     {skill.tech}
                   </Heading>
-                  {IsInLogin && (
+                  {/* {IsInLogin && (
                     <ParaText as="p" top="0.5rem" bottom="0">
                       ID: {skill.id}
                     </ParaText>
-                  )}
+                  )} */}
                   {IsInLogin && (
                     <button onClick={() => setEditingSkillId(skill.id)}>Modifier</button>
                   )}

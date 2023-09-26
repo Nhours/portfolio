@@ -65,7 +65,7 @@ const Project = ({ data }) => {
             variants={data.reverse ? fadeInLeftVariant : fadeInRightVariant}
             initial="hidden"
             whileInView="visible"
-                justify={data.reverse ? "flex-start" : "flx-end"}
+                justify={data.reverse ? "flex-start" : "flex-end"}
             >
                 <ProjectImage
                     src={data.project_img}
