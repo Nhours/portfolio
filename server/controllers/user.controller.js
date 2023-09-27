@@ -93,16 +93,16 @@ const deleteSkills = (req, res) => {
 
 // Projet
 const insertProjects = (req, res) => {
-    const { project_name, project_desc, tech_stack, project_img, project_url, reverse } = req.body
+    const { project_name, project_desc, tech_stack, project_img, project_url } = req.body
 
-    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !reverse) {
+    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
 
     console.log('Données reçues du formulaire : ', req.body);
 
-    const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`, `reverse`) VALUES (?,?,?,?,?,?)';
-    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, reverse], (err) => {
+    const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`) VALUES (?,?,?,?,?)';
+    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url], (err) => {
         if (err) {
             console.error('erreur')
             res.status(500).json({ error: 'erreur' })
@@ -128,16 +128,16 @@ const getAllProjects = (req, res) => {
 
 const updateProjects = (req, res) => {
 
-    const { project_name, project_desc, tech_stack, project_img, project_url, reverse } = req.body
+    const { project_name, project_desc, tech_stack, project_img, project_url } = req.body
 
-    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !reverse) {
+    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
 
     console.log('Données reçues du formulaire : ', req.body);
 
-    const query = 'UPDATE `projects` SET `project_name` = ?, `project_desc` = ?, `tech_stack` = ?, `project_img` = ?, `project_url` = ?, `reverse` = ? Where id = ?'
-    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, reverse, req.params.id], (err) => {
+    const query = 'UPDATE `projects` SET `project_name` = ?, `project_desc` = ?, `tech_stack` = ?, `project_img` = ?, `project_url` = ? Where id = ?'
+    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, req.params.id], (err) => {
         if (err) {
             console.error("Erreur lors de la modification des données :" + err);
             res.status(500).json({ error: "Erreur lors de la modification des données" })

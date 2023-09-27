@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
+import Modal from 'react-modal'
+
 import {
     PaddingContainer,
     FlexContainer,
@@ -52,7 +54,6 @@ const MyProjects = ({ IsInLogin }) => {
         project_img: '',
         tech_stack: '',
         project_url: '',
-        reverse: '',
     });
 
     const handleProjectAdd = async () => {
@@ -74,7 +75,6 @@ const MyProjects = ({ IsInLogin }) => {
                     project_img: '',
                     tech_stack: '',
                     project_url: '',
-                    reverse: '',
                 });
             } else {
                 console.error('Erreur lors de l\'ajout du projet');
@@ -214,20 +214,6 @@ const MyProjects = ({ IsInLogin }) => {
                                     })
                                 }
                             />
-                            <div>
-                                <input
-                                    type="checkbox"
-                                    id="reverse"
-                                    checked={editingProject.reverse}
-                                    onChange={(e) =>
-                                        setEditingProject({
-                                            ...editingProject,
-                                            reverse: e.target.checked,
-                                        })
-                                    }
-                                />
-                                <label htmlFor="reverse">Reverse</label>
-                            </div>
                             <button onClick={() => handleProjectUpdate(editingProject)}>
                                 Enregistrer
                             </button>
@@ -271,14 +257,16 @@ const MyProjects = ({ IsInLogin }) => {
                                 }
                                 initial="hidden"
                                 whileInView="visible"
-                                justify={project.reverse ? 'flex-start' : 'flex-end'}
+                                justify={project.reverse ? 'flex-start' : 'flex-end'} // Colle les images sur la droite de l'écran
                             >
                                 <ProjectImage
                                     src={project.project_img}
                                     alt={project.project_name}
                                 />
                             </ProjectImageContainer>
-                            <Button onClick={() => handleEditClick(project)}>Modifier</Button>
+                            {IsInLogin && (
+                                <Button onClick={() => handleEditClick(project)}>Modifier</Button>
+                            )}
                         </FlexContainer>
                     )}
                 </PaddingContainer>
@@ -329,14 +317,6 @@ const MyProjects = ({ IsInLogin }) => {
                             value={newProject.project_url}
                             onChange={(e) =>
                                 setNewProject({ ...newProject, project_url: e.target.value })
-                            }
-                        />
-                        <input
-                            type="text"
-                            placeholder=""
-                            value={newProject.reverse}
-                            onChange={(e) =>
-                                setNewProject({ ...newProject, reverse: e.target.value })
                             }
                         />
                         <button type="submit">Ajouter</button>
