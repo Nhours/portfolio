@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
-import Modal from 'react-modal'
 
 import {
     PaddingContainer,
