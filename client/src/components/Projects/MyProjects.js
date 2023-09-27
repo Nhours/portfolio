@@ -55,6 +55,7 @@ const MyProjects = ({ IsInLogin }) => {
         project_url: '',
     });
 
+// Ajout d'un nouveau projet
     const handleProjectAdd = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/insertProjects', {
@@ -83,6 +84,7 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
+    // Modification d'un projet existant
     const handleProjectUpdate = async (updatedProject) => {
         try {
             const response = await fetch(
@@ -113,6 +115,25 @@ const MyProjects = ({ IsInLogin }) => {
             }
         } catch (error) {
             console.error('Erreur lors de la mise à jour du projet :', error);
+        }
+    };
+
+    // Supprimer un projet
+    const handleProjectDelete = async (projectId) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/deleteProjects/${projectId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                // Supprimer le projet de la liste locale
+                const updatedProjects = projects.filter((project) => project.id !== projectId);
+                setProjects(updatedProjects);
+            } else {
+                console.error('Erreur lors de la suppression du projet');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression du projet :', error);
         }
     };
 
@@ -264,8 +285,11 @@ const MyProjects = ({ IsInLogin }) => {
                                 />
                             </ProjectImageContainer>
                             {IsInLogin && (
-                                <Button onClick={() => handleEditClick(project)}>Modifier</Button>
-                            )}
+                            <div>
+                                <button onClick={() => handleEditClick(project)}>Modifier</button>
+                                <button onClick={() => handleProjectDelete(project.id)}>Supprimer</button>
+                            </div>
+                        )}
                         </FlexContainer>
                     )}
                 </PaddingContainer>
