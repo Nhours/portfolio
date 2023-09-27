@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
-// Import Global Styles
+import { FaGithub } from 'react-icons/fa';
 import {
     PaddingContainer,
     FlexContainer,
@@ -11,20 +10,15 @@ import {
     ParaText,
     Button,
 } from '../../styles/Global.styled';
-
 import {
     ProjectImageContainer,
     ProjectImage,
-    TechStackCard
+    TechStackCard,
 } from '../../styles/MyProject.styled';
-
-// Import assets
-import { FaGithub } from 'react-icons/fa';
-
 import {
     fadeInTopVariant,
     fadeInRightVariant,
-    fadeInLeftVariant
+    fadeInLeftVariant,
 } from '../../utils/Variants';
 
 const MyProjects = ({ IsInLogin }) => {
@@ -32,7 +26,6 @@ const MyProjects = ({ IsInLogin }) => {
     const [editingProject, setEditingProject] = useState(null);
 
     useEffect(() => {
-        // Fonction pour charger les compétences depuis le backend
         const fetchProjects = async () => {
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/getProjects');
@@ -40,7 +33,11 @@ const MyProjects = ({ IsInLogin }) => {
                     const data = await response.json();
                     setProjects(data);
                 } else {
-                    console.error('Réponse HTTP non OK :', response.status, response.statusText);
+                    console.error(
+                        'Réponse HTTP non OK :',
+                        response.status,
+                        response.statusText
+                    );
                 }
             } catch (error) {
                 console.error('Erreur lors du chargement des compétences :', error.message);
@@ -87,25 +84,31 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
-    // Fonction pour mettre à jour un projet
-    const updateProject = async (updatedProjectData) => {
-        console.log(updatedProjectData)
+    const handleProjectUpdate = async (updatedProject) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/updateProjects/${updatedProjectData.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedProjectData),
-            });
+            const response = await fetch(
+                `http://127.0.0.1:8000/api/updateProjects/${updatedProject.id}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedProject),
+                }
+            );
 
             if (response.ok) {
-                const updatedProject = await response.json();
-                const updatedProjects = projects.map((project) =>
-                    project.id === updatedProjectData.id ? updatedProject : project
+                const updatedProjectIndex = projects.findIndex(
+                    (p) => p.id === updatedProject.id
                 );
-                setProjects(updatedProjects);
-                setEditingProject(null); // Clear the editingProject state
+                if (updatedProjectIndex !== -1) {
+                    const updatedProjects = [...projects];
+                    updatedProjects[updatedProjectIndex] = updatedProject;
+                    setProjects(updatedProjects);
+                    setEditingProject(null);
+                } else {
+                    console.error('Projet introuvable dans la liste des projets.');
+                }
             } else {
                 console.error('Erreur lors de la mise à jour du projet');
             }
@@ -146,7 +149,8 @@ const MyProjects = ({ IsInLogin }) => {
                 variants={fadeInTopVariant}
                 initial="hidden"
                 whileInView="visible"
-                size="h2">
+                size="h2"
+            >
                 What <GreenText>I have built</GreenText>
             </Heading>
 
@@ -188,7 +192,45 @@ const MyProjects = ({ IsInLogin }) => {
                                     })
                                 }
                             />
-                            <button onClick={() => updateProject(editingProject.id, editingProject)}>Enregistrer</button>
+                            <input
+                                type="text"
+                                placeholder="image du projet"
+                                value={editingProject.project_img}
+                                onChange={(e) =>
+                                    setEditingProject({
+                                        ...editingProject,
+                                        project_img: e.target.value,
+                                    })
+                                }
+                            />
+                            <input
+                                type="text"
+                                placeholder="url du projet"
+                                value={editingProject.project_url}
+                                onChange={(e) =>
+                                    setEditingProject({
+                                        ...editingProject,
+                                        project_url: e.target.value,
+                                    })
+                                }
+                            />
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="reverse"
+                                    checked={editingProject.reverse}
+                                    onChange={(e) =>
+                                        setEditingProject({
+                                            ...editingProject,
+                                            reverse: e.target.checked,
+                                        })
+                                    }
+                                />
+                                <label htmlFor="reverse">Reverse</label>
+                            </div>
+                            <button onClick={() => handleProjectUpdate(editingProject)}>
+                                Enregistrer
+                            </button>
                             <button onClick={handleCancelEdit}>Annuler</button>
                         </div>
                     ) : (
@@ -198,7 +240,9 @@ const MyProjects = ({ IsInLogin }) => {
                             fullWidthChild
                         >
                             <motion.div
-                                variants={project.reverse ? fadeInRightVariant : fadeInLeftVariant}
+                                variants={
+                                    project.reverse ? fadeInRightVariant : fadeInLeftVariant
+                                }
                                 initial="hidden"
                                 whileInView="visible"
                             >
@@ -212,9 +256,7 @@ const MyProjects = ({ IsInLogin }) => {
                                 </FlexContainer>
                                 <PaddingContainer top="lrem">
                                     <FlexContainer gap="1.5rem">
-                                        <TechStackCard>
-                                            {project.tech_stack}
-                                        </TechStackCard>
+                                        <TechStackCard>{project.tech_stack}</TechStackCard>
                                     </FlexContainer>
                                 </PaddingContainer>
                                 <ParaText top="1.5rem" bottom="2rem">
@@ -224,10 +266,12 @@ const MyProjects = ({ IsInLogin }) => {
                             </motion.div>
                             <ProjectImageContainer
                                 as={motion.div}
-                                variants={project.reverse ? fadeInLeftVariant : fadeInRightVariant}
+                                variants={
+                                    project.reverse ? fadeInLeftVariant : fadeInRightVariant
+                                }
                                 initial="hidden"
                                 whileInView="visible"
-                                justify={project.reverse ? "flex-start" : "flex-end"}
+                                justify={project.reverse ? 'flex-start' : 'flex-end'}
                             >
                                 <ProjectImage
                                     src={project.project_img}
@@ -251,37 +295,49 @@ const MyProjects = ({ IsInLogin }) => {
                             type="text"
                             placeholder="Nom du projet"
                             value={newProject.project_name}
-                            onChange={(e) => setNewProject({ ...newProject, project_name: e.target.value })}
+                            onChange={(e) =>
+                                setNewProject({ ...newProject, project_name: e.target.value })
+                            }
                         />
                         <input
                             type="text"
                             placeholder="Description du projet"
                             value={newProject.project_desc}
-                            onChange={(e) => setNewProject({ ...newProject, project_desc: e.target.value })}
+                            onChange={(e) =>
+                                setNewProject({ ...newProject, project_desc: e.target.value })
+                            }
                         />
                         <input
                             type="text"
                             placeholder="URL de l'image du projet"
                             value={newProject.project_img}
-                            onChange={(e) => setNewProject({ ...newProject, project_img: e.target.value })}
+                            onChange={(e) =>
+                                setNewProject({ ...newProject, project_img: e.target.value })
+                            }
                         />
                         <input
                             type="text"
                             placeholder="Technologies utilisées"
                             value={newProject.tech_stack}
-                            onChange={(e) => setNewProject({ ...newProject, tech_stack: e.target.value })}
+                            onChange={(e) =>
+                                setNewProject({ ...newProject, tech_stack: e.target.value })
+                            }
                         />
                         <input
                             type="text"
                             placeholder="URL du projet"
                             value={newProject.project_url}
-                            onChange={(e) => setNewProject({ ...newProject, project_url: e.target.value })}
+                            onChange={(e) =>
+                                setNewProject({ ...newProject, project_url: e.target.value })
+                            }
                         />
                         <input
                             type="text"
                             placeholder=""
                             value={newProject.reverse}
-                            onChange={(e) => setNewProject({ ...newProject, reverse: e.target.value })}
+                            onChange={(e) =>
+                                setNewProject({ ...newProject, reverse: e.target.value })
+                            }
                         />
                         <button type="submit">Ajouter</button>
                     </form>
