@@ -25,7 +25,7 @@ import {
 const MyProjects = ({ IsInLogin }) => {
     const [projects, setProjects] = useState([]);
     const [editingProject, setEditingProject] = useState(null);
-    const [showEditModal, setShowEditModal] = useState(false); // État pour afficher/cacher la modale
+    const [showAddForm, setShowAddForm] = useState(false);
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -56,6 +56,11 @@ const MyProjects = ({ IsInLogin }) => {
         project_url: '',
     });
 
+    // Fonction pour annuler l'ajout de projet
+    const handleCancelProject = () => {
+        setShowAddForm(false); // Fermer le formulaire
+    };
+
     // Ajout d'un nouveau projet
     const handleProjectAdd = async () => {
         try {
@@ -77,6 +82,7 @@ const MyProjects = ({ IsInLogin }) => {
                     tech_stack: '',
                     project_url: '',
                 });
+                setShowAddForm(false); // Fermer le formulaire après l'ajout
             } else {
                 console.error('Erreur lors de l\'ajout du projet');
             }
@@ -140,12 +146,10 @@ const MyProjects = ({ IsInLogin }) => {
 
     const handleEditClick = (project) => {
         setEditingProject(project);
-        setShowEditModal(true); // Ouvrir la modale
     };
 
     const handleCancelEdit = () => {
         setEditingProject(null);
-        setShowEditModal(false); // Fermer la modale
     };
 
     return (
@@ -180,7 +184,7 @@ const MyProjects = ({ IsInLogin }) => {
             {projects.map((project) => (
                 <PaddingContainer key={project.id} top="5rem" bottom="5rem">
                     {editingProject && editingProject.id === project.id ? (
-                        // Modification du projet
+                        // Formulaire de modifications du projet
                         <motion.div className="edit-modal">
                             <div>
                                 <Heading as="h2" size="h2">
@@ -312,8 +316,8 @@ const MyProjects = ({ IsInLogin }) => {
                             </ProjectImageContainer>
                             {IsInLogin && (
                                 <div>
-                                    <button onClick={() => handleEditClick(project)}>Modifier</button>
-                                    <button onClick={() => handleProjectDelete(project.id)}>Supprimer</button>
+                                    <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
+                                    <Button onClick={() => handleProjectDelete(project.id)}>Supprimer un projet</Button>
                                 </div>
                             )}
                         </FlexContainer>
@@ -322,61 +326,65 @@ const MyProjects = ({ IsInLogin }) => {
             ))}
 
 
-            {/* Modale pour le formulaire d'ajout de projet */}
-            {showEditModal && (
+            {/* Formulaire d'ajout de projet */}
+            {IsInLogin && (
                 <div>
-                    {IsInLogin && (
-                        <div>
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleProjectAdd();
-                                }}
-                            >
-                                <input
-                                    type="text"
-                                    placeholder="Nom du projet"
-                                    value={newProject.project_name}
-                                    onChange={(e) =>
-                                        setNewProject({ ...newProject, project_name: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Description du projet"
-                                    value={newProject.project_desc}
-                                    onChange={(e) =>
-                                        setNewProject({ ...newProject, project_desc: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="URL de l'image du projet"
-                                    value={newProject.project_img}
-                                    onChange={(e) =>
-                                        setNewProject({ ...newProject, project_img: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Technologies utilisées"
-                                    value={newProject.tech_stack}
-                                    onChange={(e) =>
-                                        setNewProject({ ...newProject, tech_stack: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="URL du projet"
-                                    value={newProject.project_url}
-                                    onChange={(e) =>
-                                        setNewProject({ ...newProject, project_url: e.target.value })
-                                    }
-                                />
-                                <Button type="submit">Ajouter</Button>
-                                <Button onClick={handleCancelEdit}>Annuler</Button>
-                            </form>
-                        </div>
+                    <Button onClick={() => setShowAddForm(!showAddForm)}>
+                        {showAddForm ? 'Annuler' : 'Ajouter un projet'}
+                    </Button>
+                    {showAddForm && (
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleProjectAdd();
+                                setShowAddForm(false); // Fermer le formulaire après l'ajout
+                            }}
+                        >
+                            <input
+                                type="text"
+                                placeholder="Nom du projet"
+                                value={newProject.project_name}
+                                onChange={(e) =>
+                                    setNewProject({ ...newProject, project_name: e.target.value })
+                                }
+                            />
+                            <input
+                                type="text"
+                                placeholder="Description du projet"
+                                value={newProject.project_desc}
+                                onChange={(e) =>
+                                    setNewProject({ ...newProject, project_desc: e.target.value })
+                                }
+                            />
+                            <input
+                                type="text"
+                                placeholder="URL de l'image du projet"
+                                value={newProject.project_img}
+                                onChange={(e) =>
+                                    setNewProject({ ...newProject, project_img: e.target.value })
+                                }
+                            />
+                            <input
+                                type="text"
+                                placeholder="Technologies utilisées"
+                                value={newProject.tech_stack}
+                                onChange={(e) =>
+                                    setNewProject({ ...newProject, tech_stack: e.target.value })
+                                }
+                            />
+                            <input
+                                type="text"
+                                placeholder="URL du projet"
+                                value={newProject.project_url}
+                                onChange={(e) =>
+                                    setNewProject({ ...newProject, project_url: e.target.value })
+                                }
+                            />
+                            <Button id="addProject" type="submit">Ajouter</Button>
+                            <Button id="cancelProject" onClick={handleCancelProject}>
+                                Annuler
+                            </Button>
+                        </form>
                     )}
                 </div>
             )}
