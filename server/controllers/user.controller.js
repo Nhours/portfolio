@@ -22,7 +22,6 @@ const insertSkills = (req, res) => {
             error: 'Données incorrect'
         })
     }
-    console.log('Données reçues du formulaire : ', req.body);
     const query = 'INSERT INTO `skills` (`tech`, `icon`) VALUES (?,?)';
     conn.query(query, [tech, icon], (err) => {
         if (err) {
@@ -98,9 +97,6 @@ const insertProjects = (req, res) => {
     if (!project_name || !project_desc || !tech_stack || !project_img || !project_url) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
-
-    console.log('Données reçues du formulaire : ', req.body);
-
     const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`) VALUES (?,?,?,?,?)';
     conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url], (err) => {
         if (err) {
@@ -133,9 +129,6 @@ const updateProjects = (req, res) => {
     if (!project_name || !project_desc || !tech_stack || !project_img || !project_url) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
-
-    console.log('Données reçues du formulaire : ', req.body);
-
     const query = 'UPDATE `projects` SET `project_name` = ?, `project_desc` = ?, `tech_stack` = ?, `project_img` = ?, `project_url` = ? Where id = ?'
     conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, req.params.id], (err) => {
         if (err) {
@@ -179,9 +172,6 @@ const insertExperience = (req, res) => {
     if (!title || !text) {
         res.status(400).json({ error: 'Données incorrect' })
     }
-
-    console.log('Données reçues du formulaire : ', req.body);
-
     const query = 'INSERT INTO `experience` (`title`, `text`) VALUES (?,?)';
     conn.query(query, [title, text], (err) => {
         if (err) {
@@ -216,8 +206,6 @@ const updateExperience = (req, res) => {
     if ( !title || !text ) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
-    console.log('Données reçues du formulaire : ', req.body);
-
     const query = 'UPDATE `experience` SET `title` = ?, `text` = ?  Where id_Experiences = ?'
     conn.query(query, [title, text, req.params.id], (err) => {
         if (err) {
@@ -259,9 +247,6 @@ const insertConnaissance = (req, res) => {
     if (!logo_Connaissances) {
         res.status(400).json({ error: 'Données incorrect' })
     }
-
-    console.log('Données reçues du formulaire : ', req.body);
-
     const query = 'INSERT INTO `connaissances` (`logo_Connaissances`) VALUES (?)';
     conn.query(query, [logo_Connaissances], (err) => {
         if (err) {
@@ -295,9 +280,6 @@ const updateConnaissance = (req, res) => {
     if (!logo_Connaissances) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
-
-    console.log('Données reçues du formulaire : ', req.body);
-
     const query = 'UPDATE `connaissances` SET `logo_Connaissances` = ? Where id_Connaissances = ?'
     conn.query(query, [logo_Connaissances, req.params.id], (err) => {
         if (err) {

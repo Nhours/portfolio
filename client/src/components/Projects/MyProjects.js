@@ -298,7 +298,13 @@ const MyProjects = ({ IsInLogin }) => {
                                 <ParaText top="1.5rem" bottom="2rem">
                                     {project.project_desc}
                                 </ParaText>
-                                <Button>Visiter le site</Button>
+                                    <Button>Visiter le site</Button>
+                                    {IsInLogin && (
+                                <div>
+                                    <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
+                                    <Button onClick={() => handleProjectDelete(project.id)}>Supprimer un projet</Button>
+                                </div>
+                            )}
                             </motion.div>
                             <ProjectImageContainer
                                 as={motion.div}
@@ -314,12 +320,6 @@ const MyProjects = ({ IsInLogin }) => {
                                     alt={project.project_name}
                                 />
                             </ProjectImageContainer>
-                            {IsInLogin && (
-                                <div>
-                                    <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
-                                    <Button onClick={() => handleProjectDelete(project.id)}>Supprimer un projet</Button>
-                                </div>
-                            )}
                         </FlexContainer>
                     )}
 
