@@ -389,7 +389,7 @@ const MySkills = ({ IsInLogin }) => {
                 >
                   <input type="text" name="tech" defaultValue={skill.tech} />
                   <input type="text" name="icon" defaultValue={skill.icon} />
-                  <Button type="submit">Mettre à jour</Button>
+                  <button type="submit">Mettre à jour</button>
                 </form>
               ) : (
                 <>

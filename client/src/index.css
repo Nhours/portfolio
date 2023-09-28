@@ -85,7 +85,7 @@ code {
   background-color: #10ac84;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
 }
 
@@ -99,4 +99,48 @@ code {
   font-weight: bold;
   margin-bottom: 5px;
   display: block;
+}
+
+/* Formulaire d'ajout de projet */
+.centered-form {
+  margin-top: 100px; /* Centrer horizontalement */
+  margin-bottom: -100px;
+  display: flex;
+  justify-content: justify-center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.column-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left; /* Aligner le texte à gauche */
+  max-width: 50%; /* Utilisez la largeur maximale disponible */
+  padding: 20px; /* Ajoutez de l'espace autour du formulaire */
+  border: 1px solid #ccc;
+}
+
+.column-layout label{
+  color: #10ac84;
+  font-weight: bold;
+}
+
+.column-layout input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style pour les boutons dans la modale */
+.column-layout button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #10ac84;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
 }

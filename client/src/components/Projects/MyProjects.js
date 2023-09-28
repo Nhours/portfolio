@@ -58,7 +58,7 @@ const MyProjects = ({ IsInLogin }) => {
 
     // Fonction pour annuler l'ajout de projet
     const handleCancelProject = () => {
-        setShowAddForm(false); // Fermer le formulaire
+        setShowAddForm(false);
     };
 
     // Ajout d'un nouveau projet
@@ -82,7 +82,7 @@ const MyProjects = ({ IsInLogin }) => {
                     tech_stack: '',
                     project_url: '',
                 });
-                setShowAddForm(false); // Fermer le formulaire après l'ajout
+                setShowAddForm(false);
             } else {
                 console.error('Erreur lors de l\'ajout du projet');
             }
@@ -181,7 +181,7 @@ const MyProjects = ({ IsInLogin }) => {
                 What <GreenText>I have built</GreenText>
             </Heading>
 
-            {projects.map((project) => (
+            {projects.map((project, index) => (
                 <PaddingContainer key={project.id} top="5rem" bottom="5rem">
                     {editingProject && editingProject.id === project.id ? (
                         // Formulaire de modifications du projet
@@ -322,104 +322,82 @@ const MyProjects = ({ IsInLogin }) => {
                             )}
                         </FlexContainer>
                     )}
-                </PaddingContainer>
-            ))}
 
-
-            {/* Formulaire d'ajout de projet */}
-            {IsInLogin && (
-                <div className="edit-modal">
-                    <Button onClick={() => setShowAddForm(!showAddForm)}>
-                        {showAddForm ? 'Annuler' : 'Ajouter un projet'}
-                    </Button>
-                    {showAddForm && (
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                handleProjectAdd();
-                                setShowAddForm(false); // Fermer le formulaire après l'ajout
-                            }}
-                        >
+                    {IsInLogin && index === projects.length - 1 && (
+                        <div className="column-layout centered-form">
                             <div>
                                 <Heading as="h2" size="h2">
                                     Ajouter un projet
                                 </Heading>
-                                </div>
-                                <div>
-                                    <label>Nom du projet:</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Nom du projet"
-                                        value={newProject.project_name}
-                                        onChange={(e) =>
-                                            setNewProject({ ...newProject, project_name: e.target.value })
-                                        }
-                                    />
-                                </div>
-                                <div>
-                                    <label>Description du projet:</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Description du projet"
-                                        value={newProject.project_desc}
-                                        onChange={(e) =>
-                                            setNewProject({ ...newProject, project_desc: e.target.value })
-                                        }
-                                    />
-                                </div>
-                                <div>
-                                    <label>URL de l'image du projet:</label>
-                                    <input
-                                        type="text"
-                                        placeholder="URL de l'image du projet"
-                                        value={newProject.project_img}
-                                        onChange={(e) =>
-                                            setNewProject({ ...newProject, project_img: e.target.value })
-                                        }
-                                    />
-                                </div>
-                                <div>
-                                    <label>Technologies utilisées:</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Technologies utilisées"
-                                        value={newProject.tech_stack}
-                                        onChange={(e) =>
-                                            setNewProject({ ...newProject, tech_stack: e.target.value })
-                                        }
-                                    />
-                                </div>
-                                <div>
-                                    <label>URL du projet:</label>
-                                    <input
-                                        type="text"
-                                        placeholder="URL du projet"
-                                        value={newProject.project_url}
-                                        onChange={(e) =>
-                                            setNewProject({
-                                                ...newProject,
-                                                project_url: e.target.value,
-                                            })
-                                        }
-                                    />
-                                </div>
-                                <Button
-                                    id="addProject"
-                                    type="submit"
-                                    onClick={(e) => {
-                                        e.preventDefault(); // Empêcher le formulaire de se soumettre
-                                        handleProjectAdd(); // Appeler la fonction handleProjectAdd
-                                    }}
-                                >
-                                    Ajouter
-                                </Button>
-                                {/* <Button id="cancelProject" onClick={handleCancelProject}>
-                                Annuler
-                            </Button> */}
-                        </form>
+                            </div>
+                            <label>Nom du projet:</label>
+                            <input
+                                type="text"
+                                placeholder="Nom du projet"
+                                value={newProject.project_name}
+                                onChange={(e) =>
+                                    setNewProject({
+                                        ...newProject,
+                                        project_name: e.target.value,
+                                    })
+                                }
+                            />
+                            <label>Technologies utilisées:</label>
+                            <input
+                                type="text"
+                                placeholder="Technologies utilisées"
+                                value={newProject.tech_stack}
+                                onChange={(e) =>
+                                    setNewProject({
+                                        ...newProject,
+                                        tech_stack: e.target.value,
+                                    })
+                                }
+                            />
+                            <label>Description du projet:</label>
+                            <input
+                                type="text"
+                                placeholder="Description du projet"
+                                value={newProject.project_desc}
+                                onChange={(e) =>
+                                    setNewProject({
+                                        ...newProject,
+                                        project_desc: e.target.value,
+                                    })
+                                }
+                            />
+                            <label>Image du projet:</label>
+                            <input
+                                type="text"
+                                placeholder="Image du projet"
+                                value={newProject.project_img}
+                                onChange={(e) =>
+                                    setNewProject({
+                                        ...newProject,
+                                        project_img: e.target.value,
+                                    })
+                                }
+                            />
+                            <label>URL du projet:</label>
+                            <input
+                                type="text"
+                                placeholder="URL du projet"
+                                value={newProject.project_url}
+                                onChange={(e) =>
+                                    setNewProject({
+                                        ...newProject,
+                                        project_url: e.target.value,
+                                    })
+                                }
+                            />
+                            <div>
+                                <Button onClick={handleProjectAdd}>Ajouter un projet</Button>
+                                <Button onClick={handleCancelProject}>Annuler</Button>
+                            </div>
+                        </div>
                     )}
-                </div>
-            )}
+                </PaddingContainer>
+            ))}
         </PaddingContainer>
     );
 };
