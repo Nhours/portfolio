@@ -92,3 +92,11 @@ code {
 .edit-modal button:last-child {
   margin-right: 0;
 }
+
+/* Style pour les libellés (labels) dans la modale */
+.edit-modal label {
+  color: #10ac84;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
