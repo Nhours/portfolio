@@ -302,8 +302,8 @@ const MyProjects = ({ IsInLogin }) => {
                             </ProjectImageContainer>
                             {IsInLogin && (
                                 <div>
-                                    <button onClick={() => handleEditClick(project)}>Modifier</button>
-                                    <button onClick={() => handleProjectDelete(project.id)}>Supprimer</button>
+                                    <Button onClick={() => handleEditClick(project)}>Modifier</Button>
+                                    <Button onClick={() => handleProjectDelete(project.id)}>Supprimer</Button>
                                 </div>
                             )}
                         </FlexContainer>
