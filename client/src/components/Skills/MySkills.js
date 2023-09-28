@@ -389,7 +389,7 @@ const MySkills = ({ IsInLogin }) => {
                 >
                   <input type="text" name="tech" defaultValue={skill.tech} />
                   <input type="text" name="icon" defaultValue={skill.icon} />
-                  <button type="submit">Mettre à jour</button>
+                  <Button type="submit">Mettre à jour</Button>
                 </form>
               ) : (
                 <>
@@ -404,10 +404,10 @@ const MySkills = ({ IsInLogin }) => {
                     {skill.tech}
                   </Heading>
                   {IsInLogin && (
-                    <button onClick={() => setEditingSkillId(skill.id)}>Modifier</button>
+                    <Button onClick={() => setEditingSkillId(skill.id)}>Modifier</Button>
                   )}
                   {IsInLogin && (
-                    <button onClick={() => handleSkillDelete(skill.id)}>Supprimer</button>
+                    <Button onClick={() => handleSkillDelete(skill.id)}>Supprimer</Button>
                   )}
                 </>
               )}

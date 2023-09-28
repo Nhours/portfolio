@@ -115,10 +115,11 @@ color: ${({ color, theme }) => {
 export const Button = styled.a`
 display: inline-block;
 width: max-content;
-padding: 1rem 2rem;
+padding: 0.5rem 2rem;
+margin: 0.5rem auto;
 color: ${({ theme }) => theme.colors.white};
 background-color: ${({ theme }) => theme.colors.primary_light};
-border: 1px solid  ${({ theme }) => theme.colors.gray};
+border: 1px solid  #10ac84;
 border-radius: 5px;
 cursor: pointer;
 transition: all 0.3s ease;

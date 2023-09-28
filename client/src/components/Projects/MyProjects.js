@@ -24,7 +24,7 @@ import {
 
 const MyProjects = ({ IsInLogin }) => {
     const [projects, setProjects] = useState([]);
-    const [editingProject, setEditingProject] = useState(null);
+    const [editingProjectData, setEditingProjectData] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false); // État pour afficher/cacher la modale
 
     useEffect(() => {
@@ -107,7 +107,7 @@ const MyProjects = ({ IsInLogin }) => {
                     const updatedProjects = [...projects];
                     updatedProjects[updatedProjectIndex] = updatedProject;
                     setProjects(updatedProjects);
-                    setEditingProject(null);
+                    setEditingProjectData(null);
                 } else {
                     console.error('Projet introuvable dans la liste des projets.');
                 }
@@ -139,12 +139,12 @@ const MyProjects = ({ IsInLogin }) => {
     };
 
     const handleEditClick = (project) => {
-        setEditingProject(project);
+        setEditingProjectData(project);
         setShowEditModal(true); // Ouvrir la modale
     };
 
     const handleCancelEdit = () => {
-        setEditingProject(null);
+        setEditingProjectData(null);
         setShowEditModal(false); // Fermer la modale
     };
 
@@ -179,71 +179,82 @@ const MyProjects = ({ IsInLogin }) => {
 
             {projects.map((project) => (
                 <PaddingContainer key={project.id} top="5rem" bottom="5rem">
-                    {editingProject && editingProject.id === project.id ? (
-                        // Edit project form
+                    {editingProjectData && editingProjectData.id === project.id ? (
                         // Modale pour l'édition du projet
-                        <motion.div><div>
-                        <input
-                            type="text"
-                            placeholder="Nom du projet"
-                            value={editingProject.project_name}
-                            onChange={(e) =>
-                                setEditingProject({
-                                    ...editingProject,
-                                    project_name: e.target.value,
-                                })
-                            }
-                        />
-                        <input
-                                type="text"
-                                placeholder="Technologies utilisées"
-                                value={editingProject.tech_stack}
-                                onChange={(e) =>
-                                    setEditingProject({
-                                        ...editingProject,
-                                        tech_stack: e.target.value,
-                                    })
-                                }
-                            />
-                            <input
-                                type="text"
-                                placeholder="Description du projet"
-                                value={editingProject.project_desc}
-                                onChange={(e) =>
-                                    setEditingProject({
-                                        ...editingProject,
-                                        project_desc: e.target.value,
-                                    })
-                                }
-                            />
-                            <input
-                                type="text"
-                                placeholder="image du projet"
-                                value={editingProject.project_img}
-                                onChange={(e) =>
-                                    setEditingProject({
-                                        ...editingProject,
-                                        project_img: e.target.value,
-                                    })
-                                }
-                            />
-                            <input
-                                type="text"
-                                placeholder="url du projet"
-                                value={editingProject.project_url}
-                                onChange={(e) =>
-                                    setEditingProject({
-                                        ...editingProject,
-                                        project_url: e.target.value,
-                                    })
-                                }
-                            />
-                        <Button onClick={() => handleProjectUpdate(editingProject)}>
-                            Enregistrer
-                        </Button>
-                        <Button onClick={handleCancelEdit}>Annuler</Button>
-                    </div>
-                    </motion.div>
+                        <motion.div>
+                            {showEditModal && editingProjectData && (
+                                <div className="edit-modal">
+                                    {IsInLogin && (
+                                        <div>
+                                            <form
+                                                onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    handleProjectUpdate(editingProjectData);
+                                                }}
+                                            >
+                                                <input
+                                                    type="text"
+                                                    placeholder="Nom du projet"
+                                                    value={editingProjectData.project_name}
+                                                    onChange={(e) =>
+                                                        setEditingProjectData({
+                                                            ...editingProjectData,
+                                                            project_name: e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="Description du projet"
+                                                    value={editingProjectData.project_desc}
+                                                    onChange={(e) =>
+                                                        setEditingProjectData({
+                                                            ...editingProjectData,
+                                                            project_desc: e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="URL de l'image du projet"
+                                                    value={editingProjectData.project_img}
+                                                    onChange={(e) =>
+                                                        setEditingProjectData({
+                                                            ...editingProjectData,
+                                                            project_img: e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="Technologies utilisées"
+                                                    value={editingProjectData.tech_stack}
+                                                    onChange={(e) =>
+                                                        setEditingProjectData({
+                                                            ...editingProjectData,
+                                                            tech_stack: e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="URL du projet"
+                                                    value={editingProjectData.project_url}
+                                                    onChange={(e) =>
+                                                        setEditingProjectData({
+                                                            ...editingProjectData,
+                                                            project_url: e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                                <Button type="submit">Enregistrer</Button>
+                                                <Button onClick={handleCancelEdit}>Annuler</Button>
+                                            </form>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </motion.div>
                     ) : (
                         // Display project details
                         <FlexContainer
@@ -299,64 +310,64 @@ const MyProjects = ({ IsInLogin }) => {
                     )}
                 </PaddingContainer>
             ))}
-            
+
 
             {/* Modale pour le formulaire d'édition */}
             {showEditModal && (
                 <div className="edit-modal">
                     {IsInLogin && (
-                <div>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handleProjectAdd();
-                        }}
-                    >
-                        <input
-                            type="text"
-                            placeholder="Nom du projet"
-                            value={newProject.project_name}
-                            onChange={(e) =>
-                                setNewProject({ ...newProject, project_name: e.target.value })
-                            }
-                        />
-                        <input
-                            type="text"
-                            placeholder="Description du projet"
-                            value={newProject.project_desc}
-                            onChange={(e) =>
-                                setNewProject({ ...newProject, project_desc: e.target.value })
-                            }
-                        />
-                        <input
-                            type="text"
-                            placeholder="URL de l'image du projet"
-                            value={newProject.project_img}
-                            onChange={(e) =>
-                                setNewProject({ ...newProject, project_img: e.target.value })
-                            }
-                        />
-                        <input
-                            type="text"
-                            placeholder="Technologies utilisées"
-                            value={newProject.tech_stack}
-                            onChange={(e) =>
-                                setNewProject({ ...newProject, tech_stack: e.target.value })
-                            }
-                        />
-                        <input
-                            type="text"
-                            placeholder="URL du projet"
-                            value={newProject.project_url}
-                            onChange={(e) =>
-                                setNewProject({ ...newProject, project_url: e.target.value })
-                            }
-                        />
+                        <div>
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleProjectAdd();
+                                }}
+                            >
+                                <input
+                                    type="text"
+                                    placeholder="Nom du projet"
+                                    value={newProject.project_name}
+                                    onChange={(e) =>
+                                        setNewProject({ ...newProject, project_name: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Description du projet"
+                                    value={newProject.project_desc}
+                                    onChange={(e) =>
+                                        setNewProject({ ...newProject, project_desc: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="URL de l'image du projet"
+                                    value={newProject.project_img}
+                                    onChange={(e) =>
+                                        setNewProject({ ...newProject, project_img: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Technologies utilisées"
+                                    value={newProject.tech_stack}
+                                    onChange={(e) =>
+                                        setNewProject({ ...newProject, tech_stack: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="URL du projet"
+                                    value={newProject.project_url}
+                                    onChange={(e) =>
+                                        setNewProject({ ...newProject, project_url: e.target.value })
+                                    }
+                                />
                                 <Button type="submit">Ajouter</Button>
                                 <Button onClick={handleCancelEdit}>Annuler</Button>
-                    </form>
-                </div>
-            )}
+                            </form>
+                        </div>
+                    )}
                 </div>
             )}
         </PaddingContainer>
