@@ -592,6 +592,12 @@ const MyProjects = ({ IsInLogin }) => {
                                 {project.project_desc}
                             </ParaText>
                             <Button>Visiter le site</Button>
+                            {IsInLogin && (
+                            <div>
+                                <Button onClick={() => handleEditClick(project)}>Modifier</Button>
+                                <Button onClick={() => handleProjectDelete(project.id)}>Supprimer</Button>
+                            </div>
+                        )}
                         </motion.div>
                         <ProjectImageContainer
                             as={motion.div}
@@ -601,14 +607,9 @@ const MyProjects = ({ IsInLogin }) => {
                             justify={project.reverse ? 'flex-start' : 'flex-end'}
                             flex="1"
                         >
-                            <ProjectImage src={project.project_img} alt={project.project_name} />
+                            <ProjectImage src={project.project_img} alt={project.project_name}
+                            />
                         </ProjectImageContainer>
-                        {IsInLogin && (
-                            <div>
-                                <Button onClick={() => handleEditClick(project)}>Modifier</Button>
-                                <Button onClick={() => handleProjectDelete(project.id)}>Supprimer</Button>
-                            </div>
-                        )}
                     </FlexContainer>
                 </PaddingContainer>
             ))}
