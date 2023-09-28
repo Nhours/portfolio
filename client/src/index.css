@@ -52,3 +52,43 @@ code {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Style pour la modale */
+.edit-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #131c31;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  width: 80%; /* Largeur de la modale */
+  max-width: 500px; /* Largeur maximale */
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Assurez-vous que la modale s'affiche au-dessus du contenu */
+}
+
+/* Style pour les champs de formulaire dans la modale */
+.edit-modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style pour les boutons dans la modale */
+.edit-modal button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #10ac84;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-modal button:last-child {
+  margin-right: 0;
+}

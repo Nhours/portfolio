@@ -25,6 +25,7 @@ import {
 const MyProjects = ({ IsInLogin }) => {
     const [projects, setProjects] = useState([]);
     const [editingProject, setEditingProject] = useState(null);
+    const [showEditModal, setShowEditModal] = useState(false); // État pour afficher/cacher la modale
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -55,7 +56,7 @@ const MyProjects = ({ IsInLogin }) => {
         project_url: '',
     });
 
-// Ajout d'un nouveau projet
+    // Ajout d'un nouveau projet
     const handleProjectAdd = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/insertProjects', {
@@ -139,10 +140,12 @@ const MyProjects = ({ IsInLogin }) => {
 
     const handleEditClick = (project) => {
         setEditingProject(project);
+        setShowEditModal(true); // Ouvrir la modale
     };
 
     const handleCancelEdit = () => {
         setEditingProject(null);
+        setShowEditModal(false); // Fermer la modale
     };
 
     return (
@@ -178,19 +181,20 @@ const MyProjects = ({ IsInLogin }) => {
                 <PaddingContainer key={project.id} top="5rem" bottom="5rem">
                     {editingProject && editingProject.id === project.id ? (
                         // Edit project form
-                        <div>
-                            <input
-                                type="text"
-                                placeholder="Nom du projet"
-                                value={editingProject.project_name}
-                                onChange={(e) =>
-                                    setEditingProject({
-                                        ...editingProject,
-                                        project_name: e.target.value,
-                                    })
-                                }
-                            />
-                            <input
+                        // Modale pour l'édition du projet
+                        <motion.div><div>
+                        <input
+                            type="text"
+                            placeholder="Nom du projet"
+                            value={editingProject.project_name}
+                            onChange={(e) =>
+                                setEditingProject({
+                                    ...editingProject,
+                                    project_name: e.target.value,
+                                })
+                            }
+                        />
+                        <input
                                 type="text"
                                 placeholder="Technologies utilisées"
                                 value={editingProject.tech_stack}
@@ -234,11 +238,12 @@ const MyProjects = ({ IsInLogin }) => {
                                     })
                                 }
                             />
-                            <button onClick={() => handleProjectUpdate(editingProject)}>
-                                Enregistrer
-                            </button>
-                            <button onClick={handleCancelEdit}>Annuler</button>
-                        </div>
+                        <Button onClick={() => handleProjectUpdate(editingProject)}>
+                            Enregistrer
+                        </Button>
+                        <Button onClick={handleCancelEdit}>Annuler</Button>
+                    </div>
+                    </motion.div>
                     ) : (
                         // Display project details
                         <FlexContainer
@@ -285,16 +290,21 @@ const MyProjects = ({ IsInLogin }) => {
                                 />
                             </ProjectImageContainer>
                             {IsInLogin && (
-                            <div>
-                                <button onClick={() => handleEditClick(project)}>Modifier</button>
-                                <button onClick={() => handleProjectDelete(project.id)}>Supprimer</button>
-                            </div>
-                        )}
+                                <div>
+                                    <button onClick={() => handleEditClick(project)}>Modifier</button>
+                                    <button onClick={() => handleProjectDelete(project.id)}>Supprimer</button>
+                                </div>
+                            )}
                         </FlexContainer>
                     )}
                 </PaddingContainer>
             ))}
-            {IsInLogin && (
+            
+
+            {/* Modale pour le formulaire d'édition */}
+            {showEditModal && (
+                <div className="edit-modal">
+                    {IsInLogin && (
                 <div>
                     <form
                         onSubmit={(e) => {
@@ -342,8 +352,11 @@ const MyProjects = ({ IsInLogin }) => {
                                 setNewProject({ ...newProject, project_url: e.target.value })
                             }
                         />
-                        <button type="submit">Ajouter</button>
+                                <Button type="submit">Ajouter</Button>
+                                <Button onClick={handleCancelEdit}>Annuler</Button>
                     </form>
+                </div>
+            )}
                 </div>
             )}
         </PaddingContainer>
