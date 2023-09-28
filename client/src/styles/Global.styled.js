@@ -119,7 +119,7 @@ padding: 0.5rem 2rem;
 margin: 0.5rem auto;
 color: ${({ theme }) => theme.colors.white};
 background-color: ${({ theme }) => theme.colors.primary_light};
-border: 1px solid  #10ac84;
+border: 1px solid  ${({ theme }) => theme.colors.Green};
 border-radius: 5px;
 cursor: pointer;
 transition: all 0.3s ease;
