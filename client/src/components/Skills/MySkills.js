@@ -182,8 +182,12 @@ const MySkills = ({ IsInLogin }) => {
                     });
                   }}
                 >
-                  <input type="text" name="tech" defaultValue={skill.tech} />
-                  <input type="text" name="icon" defaultValue={skill.icon} />
+                  <div className="input-text">
+                    <label>Nom de la compétence</label>
+                    <input type="text" placeholder="Nom de la compétence" name="tech" defaultValue={skill.tech} />
+                    <label>URL de l'icône</label>
+                    <input type="text" placeholder="Url de l'icône" name="icon" defaultValue={skill.icon} />
+                  </div>
                   <button type="submit" className="update-button">Mettre à jour</button>
                   <button type="button" className="update-button" onClick={() => handleCancelUpdate()}>Annuler</button>
                 </form>
@@ -210,43 +214,43 @@ const MySkills = ({ IsInLogin }) => {
             </SkillsCard>
           ))}
 
-          
+
           {/* Formulaire d'ajout de compétence */}
           {IsInLogin && (
-            
+
             <div>
               {showAddForm ? (
                 <SkillsCard>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleSkillAdd();
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="Nom de la compétence"
-                    value={newSkill.tech}
-                    onChange={(e) => setNewSkill({ ...newSkill, tech: e.target.value })}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Url de l'icône"
-                    value={newSkill.icon}
-                    onChange={(e) => setNewSkill({ ...newSkill, icon: e.target.value })}
-                  />
-                  <Button type="submit" onClick={() => {
-                    handleSkillAdd();
-                  }}>Ajouter un Skill</Button>
-                  <Button onClick={() => setShowAddForm(false)}>Fermer</Button>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSkillAdd();
+                    }}
+                  >
+                    <input
+                      type="text"
+                      placeholder="Nom de la compétence"
+                      value={newSkill.tech}
+                      onChange={(e) => setNewSkill({ ...newSkill, tech: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Url de l'icône"
+                      value={newSkill.icon}
+                      onChange={(e) => setNewSkill({ ...newSkill, icon: e.target.value })}
+                    />
+                    <Button type="submit" onClick={() => {
+                      handleSkillAdd();
+                    }}>Ajouter un Skill</Button>
+                    <Button onClick={() => setShowAddForm(false)}>Fermer</Button>
                   </form>
-                  </SkillsCard>
+                </SkillsCard>
               ) : (
                 <Button onClick={() => setShowAddForm(true)}>Ajouter</Button>
               )}
             </div>
-            )}
-            
+          )}
+
         </SkillsCardContainer>
 
         {/* right-section */}

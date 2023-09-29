@@ -15,10 +15,11 @@ padding: 0;
 export const SkillsCard = styled.div`
 width: 100%; /* Largeur de la carte à 100% pour remplir la colonne */
 border: 1px solid #fff;
-padding: 3rem 0;
+padding: 1rem 0;
 border-radius: 1rem;
 display: flex;
 flex-direction: column;
+justify-content: center;
 align-items: center;
 background-color: ${({ theme }) => theme.colors.primary_light};
 
