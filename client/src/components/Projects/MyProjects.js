@@ -71,6 +71,7 @@ const MyProjects = ({ IsInLogin }) => {
             project_url: '',
             github_url: '',
         });
+        setPreviewNewProjectImageUrl(''); // Réinitialisez l'état de la prévisualisation de l'image
         setShowAddForm(false);
     };
 
