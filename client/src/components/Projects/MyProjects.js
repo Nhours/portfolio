@@ -298,7 +298,7 @@ const MyProjects = ({ IsInLogin }) => {
                                             <img
                                                 src={previewImageUrl}
                                                 alt="ImagePreview"
-                                                style={{ maxWidth: '200px', maxHeight: '200px' }}
+                                                className="image-preview"
                                             />
                                         )}
                                     </div>
@@ -453,7 +453,7 @@ const MyProjects = ({ IsInLogin }) => {
                                 <img
                                     src={previewNewProjectImageUrl}
                                     alt="previewNewProjectImage"
-                                    style={{ maxWidth: '200px', maxHeight: '200px' }}
+                                    className="image-preview"
                                 />
                             )}
                             <label>URL du projet:</label>

@@ -208,7 +208,7 @@ const MySkills = ({ IsInLogin }) => {
                     <img
                       src={previewEditingSkillIconUrl}
                       alt="IconPreviewEdit"
-                      style={{ maxWidth: '70px', maxHeight: '70px' }}
+                      className="icon-preview"
                     />
                   )}
                   <button type="submit" className="update-button">Mettre à jour</button>
@@ -220,7 +220,7 @@ const MySkills = ({ IsInLogin }) => {
                     <img
                       src={skill.icon} // Utilisez l'URL de l'image stockée dans la base de données
                       alt={skill.tech} // Utilisez le nom de la compétence comme texte alternatif
-                      style={{ width: '70px', height: '70px' }} // Ajustez la taille de l'image selon vos besoins
+                      className="icon-preview"
                     />
                   </IconContainer>
                   <Heading as="h4" size="h4">
@@ -272,7 +272,7 @@ const MySkills = ({ IsInLogin }) => {
                       <img
                         src={previewNewSkillIconUrl}
                         alt="IconPreview"
-                        style={{ maxWidth: '70px', maxHeight: '70px' }}
+                        className="icon-preview"
                       />
                     )}
                     <Button type="submit" onClick={() => {

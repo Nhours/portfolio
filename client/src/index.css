@@ -239,6 +239,7 @@ form {
   align-items: center;
 }
 
+/* Formulaire modifier un skill */
 .input-text {
   padding: 10px;
 }
@@ -246,4 +247,16 @@ form {
 .input-text label {
   color: #10ac84;
   font-size: 14px;
+}
+
+/* Taille des previews d'icônes des skills*/
+.icon-preview {
+  max-width: 70px;
+  max-height: 70px;
+}
+
+/* Tailles des previews d'images des projets */
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
 }
