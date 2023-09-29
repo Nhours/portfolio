@@ -92,13 +92,13 @@ const deleteSkills = (req, res) => {
 
 // Projet
 const insertProjects = (req, res) => {
-    const { project_name, project_desc, tech_stack, project_img, project_url } = req.body
+    const { project_name, project_desc, tech_stack, project_img, project_url,github_url } = req.body
 
-    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url) {
+    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !github_url) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
-    const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`) VALUES (?,?,?,?,?)';
-    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url], (err) => {
+    const query = 'INSERT INTO `projects` (`project_name`, `project_desc`, `tech_stack`, `project_img`, `project_url`, `github_url`) VALUES (?,?,?,?,?,?)';
+    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, github_url], (err) => {
         if (err) {
             console.error('erreur')
             res.status(500).json({ error: 'erreur' })
@@ -124,13 +124,13 @@ const getAllProjects = (req, res) => {
 
 const updateProjects = (req, res) => {
 
-    const { project_name, project_desc, tech_stack, project_img, project_url } = req.body
+    const { project_name, project_desc, tech_stack, project_img, project_url, github_url } = req.body
 
-    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url) {
+    if (!project_name || !project_desc || !tech_stack || !project_img || !project_url || !github_url) {
         return res.status(400).json({ error: 'Données incorrect' })
     }
-    const query = 'UPDATE `projects` SET `project_name` = ?, `project_desc` = ?, `tech_stack` = ?, `project_img` = ?, `project_url` = ? Where id = ?'
-    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, req.params.id], (err) => {
+    const query = 'UPDATE `projects` SET `project_name` = ?, `project_desc` = ?, `tech_stack` = ?, `project_img` = ?, `project_url` = ?, `github_url` = ? Where id = ?'
+    conn.query(query, [project_name, project_desc, tech_stack, project_img, project_url, github_url, req.params.id], (err) => {
         if (err) {
             console.error("Erreur lors de la modification des données :" + err);
             res.status(500).json({ error: "Erreur lors de la modification des données" })
@@ -162,175 +162,16 @@ const deleteProjects = (req, res) => {
 }
 // Fin Projet
 
-
-
-// Experience
-const insertExperience = (req, res) => {
-
-    const { title, text } = req.body
-
-    if (!title || !text) {
-        res.status(400).json({ error: 'Données incorrect' })
-    }
-    const query = 'INSERT INTO `experience` (`title`, `text`) VALUES (?,?)';
-    conn.query(query, [title, text], (err) => {
-        if (err) {
-            console.error('erreur')
-            res.status(500).json({ error: 'erreur' })
-        } else {
-            res.status(200).json({ message: 'expérience enregistré' })
-        }
-    })
-
-}
-
-const getAllExperience = (req, res) => {
-
-    const query = 'SELECT * FROM `experience` ORDER BY id_Experiences DESC';
-
-    conn.query(query, (err, result) => {
-        if (err) {
-            console.error("Erreur lors de la récupération des données :" + err);
-            res.status(500).json({ error: "Erreur lors de la récupération des données" })
-        } else {
-            res.status(200).json(result)
-        }
-    })
-}
-
-const updateExperience = (req, res) => {
-    const { title, text } = req.body
-
-    console.log(req.body)
-
-    if ( !title || !text ) {
-        return res.status(400).json({ error: 'Données incorrect' })
-    }
-    const query = 'UPDATE `experience` SET `title` = ?, `text` = ?  Where id_Experiences = ?'
-    conn.query(query, [title, text, req.params.id], (err) => {
-        if (err) {
-            console.error("Erreur lors de la modification des données :" + err);
-            res.status(500).json({ error: "Erreur lors de la modification des données" })
-        } else {
-            res.status(200).json({ message: 'Experience modifié' })
-        }
-    })
-}
-const deleteExperience = (req, res) => {
-
-    const userId = req.params.id
-
-    if (!userId) {
-        return res.status(400).json({
-            error: 'ID de l\'experience manquant dans les paramètres de la route'
-        })
-    }
-
-    let query = `DELETE FROM experience WHERE id_Experiences = ${userId}`
-    conn.query(query, (err) => {
-        if (err) {
-            console.error("Erreur lors de la suppression des données :" + err);
-            res.status(500).json({ error: "Erreur lors de la suppression des données" })
-        } else {
-            res.status(200).json({ message: 'experience supprimé' })
-        }
-    })
-}
-// Fin Experience
-
-
-// Connaissance
-const insertConnaissance = (req, res) => {
-
-    const { logo_Connaissances } = req.body
-
-    if (!logo_Connaissances) {
-        res.status(400).json({ error: 'Données incorrect' })
-    }
-    const query = 'INSERT INTO `connaissances` (`logo_Connaissances`) VALUES (?)';
-    conn.query(query, [logo_Connaissances], (err) => {
-        if (err) {
-            console.error('erreur')
-            res.status(500).json({ error: 'erreur' })
-        } else {
-            res.status(200).json({ message: 'Connaissances enregistré' })
-        }
-    })
-
-}
-
-const getAllConnaissance = (req, res) => {
-
-    const query = 'SELECT * FROM `connaissances` ORDER BY id_Connaissances';
-
-    conn.query(query, (err, result) => {
-        if (err) {
-            console.error("Erreur lors de la récupération des données :" + err);
-            res.status(500).json({ error: "Erreur lors de la récupération des données" })
-        } else {
-            res.status(200).json(result)
-        }
-    })
-}
-
-const updateConnaissance = (req, res) => {
-
-    const { logo_Connaissances } = req.body
-
-    if (!logo_Connaissances) {
-        return res.status(400).json({ error: 'Données incorrect' })
-    }
-    const query = 'UPDATE `connaissances` SET `logo_Connaissances` = ? Where id_Connaissances = ?'
-    conn.query(query, [logo_Connaissances, req.params.id], (err) => {
-        if (err) {
-            console.error("Erreur lors de la modification des données :" + err);
-            res.status(500).json({ error: "Erreur lors de la modification des données" })
-        } else {
-            res.status(200).json({ message: 'Connaissance modifié' })
-        }
-    })
-}
-
-const deleteConnaissance = (req, res) => {
-
-    const userId = req.params.id
-
-    if (!userId) {
-        return res.status(400).json({
-            error: 'ID de la connaissance est manquant dans les paramètres de la route'
-        })
-    }
-
-    let query = `DELETE FROM connaissances WHERE id_Connaissances = ${userId}`
-    conn.query(query, (err) => {
-        if (err) {
-            console.error("Erreur lors de la suppression des données :" + err);
-            res.status(500).json({ error: "Erreur lors de la suppression des données" })
-        } else {
-            res.status(200).json({ message: 'connaissance supprimé' })
-        }
-    })
-}
-// Fin Connaissance
-
 module.exports = {
     getAllSkills,
     getAllProjects,
-    getAllExperience,
-    getAllConnaissance,
 
     insertSkills,
     insertProjects,
-    insertExperience,
-    insertConnaissance,
 
     updateSkills,
     updateProjects,
-    updateExperience,
-    updateConnaissance,
 
     deleteSkills,
     deleteProjects,
-    deleteExperience,
-    deleteConnaissance
 }

@@ -56,6 +56,7 @@ const MyProjects = ({ IsInLogin }) => {
         project_img: '',
         tech_stack: '',
         project_url: '',
+        github_url: '',
     });
 
     // Fonction pour annuler l'ajout de projet
@@ -66,6 +67,7 @@ const handleCancelProject = () => {
         project_img: '',
         tech_stack: '',
         project_url: '',
+        github_url: '',
     });
     setShowAddForm(false);
 };
@@ -90,6 +92,7 @@ const handleCancelProject = () => {
                     project_img: '',
                     tech_stack: '',
                     project_url: '',
+                    github_url: '',
                 });
                 setShowAddForm(false);
             } else {
@@ -180,6 +183,11 @@ const handleCancelProject = () => {
     const cancelProjectDelete = () => {
         setIsDeleteConfirmationOpen(false);
         setProjectIdToDelete(null);
+    };
+
+    // URL du projet GitHub
+    const handleGitHubClick = (githubUrl) => {
+        window.open(githubUrl, '_blank');
     };
 
     return (
@@ -291,6 +299,20 @@ const handleCancelProject = () => {
                                             }
                                         />
                                     </div>
+                                    <div>
+                                        <label>URL du github:</label>
+                                        <input
+                                            type="text"
+                                            placeholder="URL du github"
+                                            value={editingProject.github_url}
+                                            onChange={(e) =>
+                                                setEditingProject({
+                                                    ...editingProject,
+                                                    github_url: e.target.value,
+                                                })
+                                            }
+                                        />
+                                    </div>
                                     <Button onClick={() => handleProjectUpdate(editingProject)}>
                                         Modifier
                                     </Button>
@@ -316,7 +338,7 @@ const handleCancelProject = () => {
                                     <Heading as="h3" size="h3" bottom="1rem">
                                         {project.project_name}
                                     </Heading>
-                                    <IconContainer color="blue" size="2rem">
+                                    <IconContainer color="blue" size="2rem"onClick={() => handleGitHubClick(project.github_url)}>
                                         <FaGithub style={{ fontSize: '2rem' }} />
                                     </IconContainer>
                                 </FlexContainer>
@@ -353,6 +375,7 @@ const handleCancelProject = () => {
                         </FlexContainer>
                     )}
 
+                    {/* Ajouter un projet */}
                     {IsInLogin && index === projects.length - 1 && (
                         <div className="column-layout centered-form">
                             <div>
@@ -417,6 +440,18 @@ const handleCancelProject = () => {
                                     setNewProject({
                                         ...newProject,
                                         project_url: e.target.value,
+                                    })
+                                }
+                            />
+                            <label>URL du github:</label>
+                            <input
+                                type="text"
+                                placeholder="URL du gihub"
+                                value={newProject.github_url}
+                                onChange={(e) =>
+                                    setNewProject({
+                                        ...newProject,
+                                        github_url: e.target.value,
                                     })
                                 }
                             />
