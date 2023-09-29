@@ -26,6 +26,8 @@ const MyProjects = ({ IsInLogin }) => {
     const [projects, setProjects] = useState([]);
     const [editingProject, setEditingProject] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
+    const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // État pour la boîte de dialogue
+    const [projectIdToDelete, setProjectIdToDelete] = useState(null); // État pour stocker l'ID du projet à supprimer
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -57,9 +59,16 @@ const MyProjects = ({ IsInLogin }) => {
     });
 
     // Fonction pour annuler l'ajout de projet
-    const handleCancelProject = () => {
-        setShowAddForm(false);
-    };
+const handleCancelProject = () => {
+    setNewProject({
+        project_name: '',
+        project_desc: '',
+        project_img: '',
+        tech_stack: '',
+        project_url: '',
+    });
+    setShowAddForm(false);
+};
 
     // Ajout d'un nouveau projet
     const handleProjectAdd = async () => {
@@ -150,6 +159,27 @@ const MyProjects = ({ IsInLogin }) => {
 
     const handleCancelEdit = () => {
         setEditingProject(null);
+    };
+
+    // Supprimer un projet avec confirmation
+    const handleProjectDeleteWithConfirmation = (projectId) => {
+        setProjectIdToDelete(projectId);
+        setIsDeleteConfirmationOpen(true);
+    };
+
+    // Fonction pour confirmer la suppression et effectuer la suppression réelle
+    const confirmProjectDelete = async () => {
+        if (projectIdToDelete) {
+            await handleProjectDelete(projectIdToDelete);
+            setIsDeleteConfirmationOpen(false);
+            setProjectIdToDelete(null);
+        }
+    };
+
+    // Annuler la suppression
+    const cancelProjectDelete = () => {
+        setIsDeleteConfirmationOpen(false);
+        setProjectIdToDelete(null);
     };
 
     return (
@@ -298,13 +328,13 @@ const MyProjects = ({ IsInLogin }) => {
                                 <ParaText top="1.5rem" bottom="2rem">
                                     {project.project_desc}
                                 </ParaText>
-                                    <Button>Visiter le site</Button>
-                                    {IsInLogin && (
-                                <div>
-                                    <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
-                                    <Button onClick={() => handleProjectDelete(project.id)}>Supprimer un projet</Button>
-                                </div>
-                            )}
+                                <Button>Visiter le site</Button>
+                                {IsInLogin && (
+                                    <div>
+                                        <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
+                                        <Button onClick={() => handleProjectDeleteWithConfirmation(project.id)}>Supprimer un projet</Button>
+                                    </div>
+                                )}
                             </motion.div>
                             <ProjectImageContainer
                                 as={motion.div}
@@ -393,6 +423,19 @@ const MyProjects = ({ IsInLogin }) => {
                             <div>
                                 <Button onClick={handleProjectAdd}>Ajouter un projet</Button>
                                 <Button onClick={handleCancelProject}>Annuler</Button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Boîte de dialogue de confirmation de la suppression */}
+                    {isDeleteConfirmationOpen && (
+                        <div className="delete-confirmation-modal">
+                            <div>
+                                <p>Êtes-vous sûr de vouloir supprimer ce projet ?</p>
+                                <div>
+                                    <Button onClick={confirmProjectDelete}>Confirmer</Button>
+                                    <Button onClick={cancelProjectDelete}>Annuler</Button>
+                                </div>
                             </div>
                         </div>
                     )}
