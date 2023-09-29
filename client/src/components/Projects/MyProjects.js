@@ -28,6 +28,8 @@ const MyProjects = ({ IsInLogin }) => {
     const [showAddForm, setShowAddForm] = useState(false);
     const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // État pour la boîte de dialogue
     const [projectIdToDelete, setProjectIdToDelete] = useState(null); // État pour stocker l'ID du projet à supprimer
+    const [previewImageUrl, setPreviewImageUrl] = useState(''); // État pour stocker l'URL de l'image de prévisualisation
+    const [previewNewProjectImageUrl, setPreviewNewProjectImageUrl] = useState(''); // État pour stocker l'URL de l'image de prévisualisation du nouveau projet
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -60,17 +62,17 @@ const MyProjects = ({ IsInLogin }) => {
     });
 
     // Fonction pour annuler l'ajout de projet
-const handleCancelProject = () => {
-    setNewProject({
-        project_name: '',
-        project_desc: '',
-        project_img: '',
-        tech_stack: '',
-        project_url: '',
-        github_url: '',
-    });
-    setShowAddForm(false);
-};
+    const handleCancelProject = () => {
+        setNewProject({
+            project_name: '',
+            project_desc: '',
+            project_img: '',
+            tech_stack: '',
+            project_url: '',
+            github_url: '',
+        });
+        setShowAddForm(false);
+    };
 
     // Ajout d'un nouveau projet
     const handleProjectAdd = async () => {
@@ -158,10 +160,12 @@ const handleCancelProject = () => {
 
     const handleEditClick = (project) => {
         setEditingProject(project);
+        setPreviewImageUrl(project.project_img);
     };
 
     const handleCancelEdit = () => {
         setEditingProject(null);
+        setPreviewImageUrl('');
     };
 
     // Supprimer un projet avec confirmation
@@ -280,15 +284,23 @@ const handleCancelProject = () => {
                                         <label>Image du projet:</label>
                                         <input
                                             type="text"
-                                            placeholder="Image du projet"
+                                            placeholder="URL de l'image du projet"
                                             value={editingProject.project_img}
-                                            onChange={(e) =>
+                                            onInput={(e) => {
                                                 setEditingProject({
                                                     ...editingProject,
                                                     project_img: e.target.value,
-                                                })
-                                            }
+                                                });
+                                                setPreviewImageUrl(e.target.value);
+                                            }}
                                         />
+                                        {previewImageUrl && (
+                                            <img
+                                                src={previewImageUrl}
+                                                alt="ImagePreview"
+                                                style={{ maxWidth: '200px', maxHeight: '200px' }}
+                                            />
+                                        )}
                                     </div>
                                     <div>
                                         <label>URL du projet:</label>
@@ -427,15 +439,23 @@ const handleCancelProject = () => {
                             <label>Image du projet:</label>
                             <input
                                 type="text"
-                                placeholder="Image du projet"
+                                placeholder="URL de l'image du projet"
                                 value={newProject.project_img}
-                                onChange={(e) =>
+                                onInput={(e) => {
                                     setNewProject({
                                         ...newProject,
                                         project_img: e.target.value,
-                                    })
-                                }
+                                    });
+                                    setPreviewNewProjectImageUrl(e.target.value);
+                                }}
                             />
+                            {previewNewProjectImageUrl && (
+                                <img
+                                    src={previewNewProjectImageUrl}
+                                    alt="previewNewProjectImage"
+                                    style={{ maxWidth: '200px', maxHeight: '200px' }}
+                                />
+                            )}
                             <label>URL du projet:</label>
                             <input
                                 type="text"
