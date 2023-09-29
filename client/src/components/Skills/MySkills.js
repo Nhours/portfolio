@@ -207,7 +207,7 @@ const MySkills = ({ IsInLogin }) => {
                   {previewEditingSkillIconUrl && (
                     <img
                       src={previewEditingSkillIconUrl}
-                      alt="Icon preview"
+                      alt="IconPreviewEdit"
                       style={{ maxWidth: '70px', maxHeight: '70px' }}
                     />
                   )}
