@@ -150,6 +150,16 @@ const MySkills = ({ IsInLogin }) => {
     setEditingSkillId(null); // Réinitialise l'état d'édition
   };
 
+  useEffect(() => {
+    // Mettez à jour l'aperçu de l'icône lorsque l'ID de compétence en édition change
+    if (editingSkillId !== null) {
+      const editedSkill = skills.find((skill) => skill.id === editingSkillId);
+      if (editedSkill) {
+        setPreviewEditingSkillIconUrl(editedSkill.icon);
+      }
+    }
+  }, [editingSkillId, skills]);
+
   return (
     <PaddingContainer
       id="Skills"
