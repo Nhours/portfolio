@@ -190,6 +190,11 @@ const handleCancelProject = () => {
         window.open(githubUrl, '_blank');
     };
 
+    // URL du projet GitHub
+    const handleProjectClick = (projectUrl) => {
+        window.open(projectUrl, '_blank');
+    };
+
     return (
         <PaddingContainer
             id="Projects"
@@ -338,7 +343,7 @@ const handleCancelProject = () => {
                                     <Heading as="h3" size="h3" bottom="1rem">
                                         {project.project_name}
                                     </Heading>
-                                    <IconContainer color="blue" size="2rem"onClick={() => handleGitHubClick(project.github_url)}>
+                                    <IconContainer color="blue" size="2rem" onClick={() => handleGitHubClick(project.github_url)}>
                                         <FaGithub style={{ fontSize: '2rem' }} />
                                     </IconContainer>
                                 </FlexContainer>
@@ -350,7 +355,7 @@ const handleCancelProject = () => {
                                 <ParaText top="1.5rem" bottom="2rem">
                                     {project.project_desc}
                                 </ParaText>
-                                <Button>Visiter le site</Button>
+                                <Button onClick={() => handleProjectClick(project.project_url)}>Visiter le site</Button>
                                 {IsInLogin && (
                                     <div>
                                         <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
