@@ -29,6 +29,8 @@ const MySkills = ({ IsInLogin }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // État pour la boîte de dialogue
   const [skillIdToDelete, setSkillIdToDelete] = useState(null); // État pour stocker l'ID de la compétence à supprimer
+  const [previewNewSkillIconUrl, setPreviewNewSkillIconUrl] = useState(''); // État pour afficher l'URL de l'icône en prévisualisation
+  const [previewEditingSkillIconUrl, setPreviewEditingSkillIconUrl] = useState(''); // État pour afficher l'URL de l'icône en édition en prévisualisation
 
   useEffect(() => {
     // Fonction pour charger les compétences depuis le backend
@@ -184,10 +186,31 @@ const MySkills = ({ IsInLogin }) => {
                 >
                   <div className="input-text">
                     <label>Nom de la compétence</label>
-                    <input type="text" placeholder="Nom de la compétence" name="tech" defaultValue={skill.tech} />
+                    <input
+                      type="text"
+                      placeholder="Nom de la compétence"
+                      name="tech"
+                      defaultValue={skill.tech}
+                    />
                     <label>URL de l'icône</label>
-                    <input type="text" placeholder="Url de l'icône" name="icon" defaultValue={skill.icon} />
+                    <input
+                      type="text"
+                      placeholder="Url de l'icône"
+                      name="icon"
+                      defaultValue={skill.icon}
+                      onInput={(e) => {
+                        setEditingSkillId(skill.id); // Mettez à jour l'état d'édition
+                        setPreviewEditingSkillIconUrl(e.target.value); // Mettez à jour l'aperçu de l'icône en temps réel
+                      }}
+                    />
                   </div>
+                  {previewEditingSkillIconUrl && (
+                    <img
+                      src={previewEditingSkillIconUrl}
+                      alt="Icon preview"
+                      style={{ maxWidth: '70px', maxHeight: '70px' }}
+                    />
+                  )}
                   <button type="submit" className="update-button">Mettre à jour</button>
                   <button type="button" className="update-button" onClick={() => handleCancelUpdate()}>Annuler</button>
                 </form>
@@ -237,8 +260,21 @@ const MySkills = ({ IsInLogin }) => {
                       type="text"
                       placeholder="Url de l'icône"
                       value={newSkill.icon}
-                      onChange={(e) => setNewSkill({ ...newSkill, icon: e.target.value })}
+                      onInput={(e) => {
+                        setNewSkill({
+                          ...newSkill,
+                          icon: e.target.value,
+                        });
+                        setPreviewNewSkillIconUrl(e.target.value);
+                      }}
                     />
+                    {previewNewSkillIconUrl && (
+                      <img
+                        src={previewNewSkillIconUrl}
+                        alt="IconPreview"
+                        style={{ maxWidth: '70px', maxHeight: '70px' }}
+                      />
+                    )}
                     <Button type="submit" onClick={() => {
                       handleSkillAdd();
                     }}>Ajouter un Skill</Button>
