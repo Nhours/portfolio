@@ -264,11 +264,11 @@ const MySkills = ({ IsInLogin }) => {
           <div>
             <p>Voulez-vous vraiment supprimer cette compétence ?</p>
             <div>
-          <Button onClick={confirmSkillDelete}>Oui</Button>
-          <Button onClick={cancelSkillDelete}>Annuler</Button>
+              <Button onClick={confirmSkillDelete}>Oui</Button>
+              <Button onClick={cancelSkillDelete}>Annuler</Button>
+            </div>
           </div>
-                            </div>
-                        </div>
+        </div>
       )}
     </PaddingContainer>
   );
