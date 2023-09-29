@@ -144,6 +144,10 @@ const MySkills = ({ IsInLogin }) => {
     setSkillIdToDelete(null);
   };
 
+  const handleCancelUpdate = () => {
+    setEditingSkillId(null); // Réinitialise l'état d'édition
+  };
+
   return (
     <PaddingContainer
       id="Skills"
@@ -180,7 +184,8 @@ const MySkills = ({ IsInLogin }) => {
                 >
                   <input type="text" name="tech" defaultValue={skill.tech} />
                   <input type="text" name="icon" defaultValue={skill.icon} />
-                  <button type="submit">Mettre à jour</button>
+                  <button type="submit" className="update-button">Mettre à jour</button>
+                  <button type="button" className="update-button" onClick={() => handleCancelUpdate()}>Annuler</button>
                 </form>
               ) : (
                 <>
@@ -204,6 +209,8 @@ const MySkills = ({ IsInLogin }) => {
               )}
             </SkillsCard>
           ))}
+
+          {/* Formulaire d'ajout de compétence */}
           {IsInLogin && (
             <div>
               {showAddForm ? (
