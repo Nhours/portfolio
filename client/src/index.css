@@ -30,7 +30,7 @@ code {
   background-color: #131c31;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-image: linear-gradient(#10ac84, #131c31);
   border-radius: 10px;
 }
@@ -41,11 +41,13 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%; /* Hauteur de la modale */
+  height: 100%;
+  /* Hauteur de la modale */
 }
 
 .modal-content {
-  max-width: 80%; /* Largeur maximale de la modale */
+  max-width: 80%;
+  /* Largeur maximale de la modale */
   padding: 20px;
   /* background-color: #131c31; */
   border-radius: 8px;
@@ -61,11 +63,14 @@ code {
   background-color: #131c31;
   border-radius: 8px;
   border: 5px solid #ffffff;
-  width: 80%; /* Largeur de la modale */
-  max-width: 900px; /* Largeur maximale */
+  width: 80%;
+  /* Largeur de la modale */
+  max-width: 900px;
+  /* Largeur maximale */
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000; /* Assurez-vous que la modale s'affiche au-dessus du contenu */
+  z-index: 1000;
+  /* Assurez-vous que la modale s'affiche au-dessus du contenu */
 }
 
 /* Style pour les champs de formulaire dans la modale */
@@ -102,7 +107,8 @@ code {
 
 /* Formulaire d'ajout de projet */
 .centered-form {
-  margin-top: 100px; /* Centrer horizontalement */
+  margin-top: 100px;
+  /* Centrer horizontalement */
   margin-bottom: -100px;
   display: flex;
   justify-content: justify-center;
@@ -114,13 +120,16 @@ code {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: left; /* Aligner le texte à gauche */
-  max-width: 50%; /* Utilisez la largeur maximale disponible */
-  padding: 20px; /* Ajoutez de l'espace autour du formulaire */
+  text-align: left;
+  /* Aligner le texte à gauche */
+  max-width: 50%;
+  /* Utilisez la largeur maximale disponible */
+  padding: 20px;
+  /* Ajoutez de l'espace autour du formulaire */
   border: 5px solid #ccc;
 }
 
-.column-layout label{
+.column-layout label {
   color: #10ac84;
   font-weight: bold;
 }
@@ -155,7 +164,8 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Assurez-vous que la boîte de dialogue s'affiche au-dessus de tout le reste */
+  z-index: 1000;
+  /* Assurez-vous que la boîte de dialogue s'affiche au-dessus de tout le reste */
 }
 
 .delete-confirmation-modal div {
@@ -175,7 +185,8 @@ code {
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #ff5555; /* Couleur de fond du bouton de confirmation */
+  background-color: #ff5555;
+  /* Couleur de fond du bouton de confirmation */
   color: white;
   border: none;
   border-radius: 4px;
@@ -183,16 +194,19 @@ code {
 }
 
 .delete-confirmation-modal button:hover {
-  background-color: #cc0000; /* Couleur de fond du bouton de confirmation au survol */
+  background-color: #cc0000;
+  /* Couleur de fond du bouton de confirmation au survol */
 }
 
 .delete-confirmation-modal button:last-child {
-  background-color: #ddd; /* Couleur de fond du bouton d'annulation */
+  background-color: #ddd;
+  /* Couleur de fond du bouton d'annulation */
   color: #333;
 }
 
 .delete-confirmation-modal button:last-child:hover {
-  background-color: #aaa; /* Couleur de fond du bouton d'annulation au survol */
+  background-color: #aaa;
+  /* Couleur de fond du bouton d'annulation au survol */
 }
 
 /* Styles for the "Mettre à jour" button */
@@ -213,4 +227,13 @@ code {
 .update-button:hover {
   color: #131c31;
   background-color: white;
+}
+
+form {
+  width: 100%;
+  padding: 3rem 0;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -210,10 +210,13 @@ const MySkills = ({ IsInLogin }) => {
             </SkillsCard>
           ))}
 
+          
           {/* Formulaire d'ajout de compétence */}
           {IsInLogin && (
+            
             <div>
               {showAddForm ? (
+                <SkillsCard>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -236,12 +239,14 @@ const MySkills = ({ IsInLogin }) => {
                     handleSkillAdd();
                   }}>Ajouter un Skill</Button>
                   <Button onClick={() => setShowAddForm(false)}>Fermer</Button>
-                </form>
+                  </form>
+                  </SkillsCard>
               ) : (
                 <Button onClick={() => setShowAddForm(true)}>Ajouter</Button>
               )}
             </div>
-          )}
+            )}
+            
         </SkillsCardContainer>
 
         {/* right-section */}

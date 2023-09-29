@@ -116,7 +116,7 @@ export const Button = styled.a`
 display: inline-block;
 width: max-content;
 padding: 0.5rem 2rem;
-margin: 0.5rem 0.5rem;
+margin: 0.5rem 1rem;
 color: ${({ theme }) => theme.colors.white};
 background-color: ${({ theme }) => theme.colors.primary_light};
 border: 1px solid  ${({ theme }) => theme.colors.Green};
