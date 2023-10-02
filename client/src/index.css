@@ -216,7 +216,7 @@ code {
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
-  color: white;
+  color: rgb(255, 255, 255);
   background-color: #131c31;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -230,7 +230,7 @@ code {
   background-color: white;
 }
 
-form {
+.form-skill {
   width: 100%;
   padding: 1rem 0;
   border-radius: 1rem;
@@ -239,12 +239,34 @@ form {
   align-items: center;
 }
 
+.form-skill {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+
 /* Formulaire modifier un skill */
 .input-text {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .input-text label {
+  margin-top: 10px;
   color: #10ac84;
   font-size: 14px;
 }

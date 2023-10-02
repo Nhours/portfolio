@@ -184,7 +184,7 @@ const MySkills = ({ IsInLogin }) => {
           {skills.map((skill) => (
             <SkillsCard key={skill.id}>
               {editingSkillId === skill.id ? (
-                <form
+                <form className='form-skill'
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSkillUpdate({
@@ -254,18 +254,21 @@ const MySkills = ({ IsInLogin }) => {
             <div>
               {showAddForm ? (
                 <SkillsCard>
-                  <form
+                  <form className='form-skill'
                     onSubmit={(e) => {
                       e.preventDefault();
                       handleSkillAdd();
                     }}
                   >
+                    <div className="input-text">
+                    <label>Nom de la compétence</label>
                     <input
                       type="text"
                       placeholder="Nom de la compétence"
                       value={newSkill.tech}
                       onChange={(e) => setNewSkill({ ...newSkill, tech: e.target.value })}
                     />
+                    <label>Url de l'icône</label>
                     <input
                       type="text"
                       placeholder="Url de l'icône"
@@ -278,6 +281,7 @@ const MySkills = ({ IsInLogin }) => {
                         setPreviewNewSkillIconUrl(e.target.value);
                       }}
                     />
+                    </div>
                     {previewNewSkillIconUrl && (
                       <img
                         src={previewNewSkillIconUrl}
