@@ -342,8 +342,8 @@ const MyProjects = ({ IsInLogin }) => {
 
                         // Affiche les projets
                         <FlexContainer
-                            direction={project.reverse ? 'row-reverse' : false}
-                            fullWidthChild
+                        direction={index % 2 === 0 ? 'row-reverse' : 'row'}
+                        fullWidthChild
                         >
                             <motion.div
                                 variants={
@@ -383,7 +383,7 @@ const MyProjects = ({ IsInLogin }) => {
                                 }
                                 initial="hidden"
                                 whileInView="visible"
-                                justify={project.reverse ? 'flex-start' : 'flex-end'} // Colle les images sur la droite de l'écran
+                                justify={index % 2 === 0 ? 'flex-start' : 'flex-end'} // Colle les images sur la droite de l'écran
                             >
                                 <ProjectImage
                                     src={project.project_img}
